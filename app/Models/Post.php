@@ -48,7 +48,7 @@ class Post extends Model
 
     public function profile( $perPage = null, $user_id){
         $posts = DB::table($this->table)  ->join('users', 'posts.user_id', '=', 'users.id')
-        ->select('posts.id', 'posts.content','posts.created_at', 'users.name')
+        ->select('posts.id', 'posts.content','posts.image','posts.created_at', 'users.name')
         ->where('posts.user_id', $user_id)
         ->selectSub(function ($query) {
             $query->from('comments')

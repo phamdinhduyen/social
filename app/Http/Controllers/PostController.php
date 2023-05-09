@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    const _PER_PAGE = 2;
+    const _PER_PAGE = 50;
     private $post;
     public function __construct()
     {

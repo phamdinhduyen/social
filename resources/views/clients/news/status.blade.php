@@ -1,7 +1,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
-    
+ 
     // get comment when click buttom comment
     $(".comments").click(function(e) {
             var commentForm = document.getElementsByClassName('form-comment');
@@ -46,6 +46,7 @@ $(document).ready(function() {
     })
     //add comment
     $(".submit-comment").click(function(e) {
+        console.log($(this));
         e.preventDefault();
         var commentErr = document.getElementsByClassName('comment-error');
         var id = $(this).attr('data-value')
@@ -77,7 +78,7 @@ $(document).ready(function() {
                             <div style="margin-left:10px; ">
                                 <div>
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-                                    <a href="{{route('profile')}}" style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a> 
+                                    <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a> 
                                 </div>
                                 <span style="font-size:12px; margin-left:40px;">${item.content}<span>
                                 <div>
@@ -116,15 +117,16 @@ $(document).ready(function() {
         var unLike = document.getElementsByClassName('unlike');
         var heart = document.getElementsByClassName('heart');
         var index = $(this).attr('data-index-value');
+
         $.ajax({
                 type: 'get',
                 url: 'http://127.0.0.1:8000/like',
                 data: {post_id: post_id,},
                 success: function(data) {
+                    like[index].style.display = 'none'; 
+                    unLike[index].style.display = 'block'; 
+                    heart[index].style.color = 'red';
                 // Handle successful response
-                like[index].style.display = 'none'; 
-                unLike[index].style.display = 'block'; 
-                heart[index].style.color = 'red';
                 },
                 error: function(xhr, status, error) {
                 // Handle error response
@@ -138,6 +140,7 @@ $(document).ready(function() {
         var unLike = document.getElementsByClassName('unlike');
         var heart = document.getElementsByClassName('heart');
         var index = $(this).attr('data-index-value');
+
         $.ajax({
                 type: 'get',
                 url: 'http://127.0.0.1:8000/unlike',
@@ -167,6 +170,11 @@ $(document).ready(function() {
                                 </div>
                                 <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>
                                 <span>{{$item->content}}<span>
+                            </div>
+                            <div style="margin-top:5px">
+                                @if ($item->image)
+                                    <img height="400px" width="100%" src="{{ asset('Uploads/'.$item->image) }}" alt="image">
+                                @endif
                             </div>
                        </div>
                        <div style="border-bottom:1px solid #A9A9A9;display:flex; justify-content: space-between;">
