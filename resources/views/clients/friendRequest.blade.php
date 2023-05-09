@@ -52,6 +52,9 @@
             @show
         </div>
         <div class="col-md-6">
+        @if($users->count() == 0)
+        <h4 style="text-align: center;">Bạn không có lời mời kết bạn</h4>
+        @endif
         @if($users)
         @foreach($users as $key => $item)
         <div class="confirm" style="margin-bottom:20px; display:flex; justify-content: space-between; margin:15px; background-color:aliceblue">

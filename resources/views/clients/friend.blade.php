@@ -1,3 +1,29 @@
+<title>Bạn bè</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+     $(document).ready(function(){
+        $(".delete-friend").click(function(){
+               var deleteFriend = document.getElementsByClassName('delete-friend');
+               var confirm = document.getElementsByClassName('confirm');
+               var index = $(this).attr('data-index-value')
+               var user_id = $(this).attr('data-value');
+               
+               $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8000/delete-friend',
+                data: {user_id: user_id,},
+                success: function(data) {
+                    confirm[index].style.display = 'none';
+                // Handle successful response
+                },
+                error: function(xhr, status, error) {
+                // Handle error response
+                }
+            }); 
+        });
+
+     })
+</script>
 @extends('layouts.app')
 @section('content')
 <div class="container" >
@@ -8,6 +34,9 @@
             @show
         </div>
         <div class="col-md-6">
+        @if($users->count() == 0)
+            <h4 style="text-align: center;">Bạn chưa có bạn bè</h4>
+        @endif
         @if($users)
         @foreach($users as $key => $item)
         <div class="confirm" style="margin-bottom:20px; display:flex; justify-content: space-between; margin:15px; background-color:aliceblue">

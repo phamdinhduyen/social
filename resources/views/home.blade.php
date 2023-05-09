@@ -167,119 +167,21 @@ $(document).ready(function() {
     <div style="display: flex; margin:5px">
         <div class="col-md-3">
             @section('sizebar')
-            @include('clients.block.sizebar')
+                @include('clients.block.sizebar')
             @show
         </div>
         <div class="col-md-6 list-post" style="height:600px;overflow-y: scroll">
-            <div class="card">
-                <h5 style="text-align: center; color:red; margin-top:5px">Chào mừng bạn đến với social</h1>
-                <form style="display:flex;  justify-content: center;" action="" method="post" enctype="multipart/form-data">
-                @csrf
-                    <div>
-                        <div class="form-group" style="width: 100%; border-radius: 25px;">
-                            <textarea style="border-radius: 5px" class="form-control" name="content" id="post" rows="1" placeholder="Xin chào, Hôm nay bạn thế nào" ></textarea>
-                            @error('content')
-                            <span style="color:red">{{$message}}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group" style="margin-top:14px">
-                            <input id="file" type="file" name="file" accept="image/jpeg, image/png">
-                        </div>
-                    </div>
-                    <div class="form-group" style=" margin-left:5px">
-                        <button class="btn btn-secondary" type="submit">Đăng</button>
-                    </div>
-                </form>
-            </div>
-            @if($allPost -> count() > 0)
-                @foreach($allPost as $key => $item)
-                    <div class="card post" data-post-id="{{$item->id}}" style="margin-top:5px; padding:0px">
-                       <div style="border-bottom:1px solid #A9A9A9">
-                            <div style="margin-left:10px;">
-                                <div>
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-                                    <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
-                                </div>
-                                <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>
-                                <span>{{$item->content}}<span>
-                            </div>
-                            <div style="margin-top:5px">
-                                @if ($item->image)
-                                    <img height="400px" width="100%" src="{{ asset('Uploads/'.$item->image) }}" alt="image">
-                                @endif
-                            </div>
-                       </div>
-                       <div style="border-bottom:1px solid #A9A9A9;display:flex; justify-content: space-between;">
-                            <div>
-                                <span style="margin-left:10px;color: 2F4F4F">{{$item->like_count }}</span>
-                                <span style="color: 2F4F4F">người khác đã thích</span>
-                            </div>
-                            <div>
-                                <span style="color: 2F4F4F">{{$item->comment_count }}</span>
-                                <span style="margin-right:10px;color: 2F4F4F">Bình luận</span>
-                            </div>
-                        </div>
-                        
-                        <div style="border-bottom:1px solid #A9A9A9 ">
-                            <div style="display:flex; justify-content: space-around; ">
-                                <div> 
-                                    @if($item->is_liked == 0)
-                                        <div style="display:flex">
-                                            <div style="margin-right:3px; margin-top: 4px">
-                                                <i style="color:#A9A9A9" class="fas fa-heart heart"></i>
-                                            </div>
-                                            <div>
-                                                <a style="text-decoration: none; font-weight:900" type="submit" class="like" data-value="{{$item->id}}" data-index-value="{{$key}}">Thích</a>
-                                                <a style="text-decoration: none;  font-weight:900; display:none" type="submit" class="unlike" data-value="{{$item->id}}" data-index-value="{{$key}}">Bỏ Thích</a>
-                                            </div>
-                                        </div>  
-                                    @else 
-                                    <div style="display:flex">
-                                            <div style="margin-right:3px; margin-top: 4px">
-                                            <i style="color:red" class="fas fa-heart heart"></i> 
-                                            </div>
-                                            <div>
-                                                <a style="text-decoration: none;  font-weight:900" type="submit" class="unlike" data-value="{{$item->id}}" data-index-value="{{$key}}">Bỏ Thích</a>
-                                                <a style="text-decoration: none; font-weight:900; display:none" type="submit" class="like" data-value="{{$item->id}}" data-index-value="{{$key}}">Thích</a>  
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div> 
-                                <div>
-                                    <i style="color:A9A9A9" class="fas fa-comment-alt"></i>
-                                    <a style="text-decoration: none;font-weight:900" type="submit" class="comments" data-value="{{$item->id}}" data-index-value="{{$key}}">Bình luận</a>
-                                </div>
-                                <div>
-                                    <i style="color:A9A9A9" class="fas fa-share-square"></i>
-                                    <a style="text-decoration: none;font-weight:900" type="submit" class="share">Chia sẻ</a>
-                                </div>
-                            </div>
-                        </div>  
-                        <div class="form-comment" style="display: none;">
-                            <form id="comments-form" style="display:flex; margin-top:5px" action="" method="get">
-                                @csrf
-                                <div class="form-group" style="width: 70%; margin-left:5px; border-radius: 25px;">
-                                    <textarea style="border-radius: 5px" class="form-control" name="content" id="comments-post-{{$item->id}}" rows="1" ></textarea>
-                                    <span class="comment-error"></span>
-                                </div>
-                                <div class="form-group" style=" margin-left:5px">
-                                    <button style="text-decoration: none;font-weight:900" type="submit" class="btn-secondary submit-comment" data-value="{{$item->id}}" data-index-value="{{$key}}"> Bình luận </button>
-                                </div>
-                            </form> 
-                            
-                            <div class="comment-success"></div>
-                       </div>
-                    </div>  
-                @endforeach
-            @endif
-           
+            @section('status')
+                @include('clients.news.status')
+            @show
         </div>
         <div class="col-md-3" >
+            
             <div style="position: fixed; right: 50;top:80px; height: 150px; overflow-y: scroll;width: 320px;">
                 @include('clients.ads')
             </div>
 
-            <div style="position: fixed; right: 50;bottom:20px; height: 350px; overflow-y: scroll;width: 320px; border-top: 3px solid #A9A9A9; border-left: 3px solid #A9A9A9">
+            <div style="position: fixed; right: 50;bottom:20px; height: 55%; overflow-y: scroll;width: 22%; border-top: 3px solid #A9A9A9; border-left: 3px solid #A9A9A9">
                 @include('clients.block.addFriend')
             </div>
         </div>

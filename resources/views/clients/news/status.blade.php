@@ -158,15 +158,33 @@ $(document).ready(function() {
     })
 })
 </script>
-
-@if($allPost -> count() > 0)
+ <div class="card" >
+                <form style="margin-top:5px; display:flex;  justify-content: center;" action="" method="post" enctype="multipart/form-data">
+                @csrf
+                    <div>
+                        <div class="form-group" style="width: 100%; border-radius: 25px;">
+                            <textarea style="border-radius: 5px" class="form-control" name="content" id="post" rows="1" placeholder="Xin chào, Hôm nay bạn thế nào" ></textarea>
+                            @error('content')
+                            <span style="color:red">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group" style="margin-top:14px">
+                            <input id="file" type="file" name="file" accept="image/jpeg, image/png">
+                        </div>
+                    </div>
+                    <div class="form-group" style=" margin-left:5px">
+                        <button class="btn btn-secondary" type="submit">Đăng</button>
+                    </div>
+                </form>
+            </div>
+            @if($allPost -> count() > 0)
                 @foreach($allPost as $key => $item)
                     <div class="card post" data-post-id="{{$item->id}}" style="margin-top:5px; padding:0px">
                        <div style="border-bottom:1px solid #A9A9A9">
                             <div style="margin-left:10px;">
                                 <div>
                                     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-                                    <a href="{{route('profile')}}" style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
+                                    <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
                                 </div>
                                 <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>
                                 <span>{{$item->content}}<span>
