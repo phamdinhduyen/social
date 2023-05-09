@@ -42,6 +42,11 @@
 
      })
 </script>
+<style>
+  .no-friend{
+    color: #159b4b
+  }  
+</style>
 @extends('layouts.app')
 @section('content')
 <div class="container" >
@@ -53,7 +58,7 @@
         </div>
         <div class="col-md-6">
         @if($users->count() == 0)
-        <h4 style="text-align: center;">Bạn không có lời mời kết bạn</h4>
+        <h4 class="no-friend" style="text-align: center;">Bạn không có lời mời kết bạn</h4>
         @endif
         @if($users)
         @foreach($users as $key => $item)
@@ -71,7 +76,7 @@
         @endif   
         </div>
         <div class="col-md-3">
-          
+         
         </div>
      </div>
 </div>

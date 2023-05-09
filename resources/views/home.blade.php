@@ -177,8 +177,8 @@ $(document).ready(function() {
         </div>
         <div class="col-md-3" >
             
-            <div style="position: fixed; right: 50;top:80px; height: 150px; overflow-y: scroll;width: 320px;">
-                @include('clients.ads')
+            <div style="position: fixed; right: 50;top:80px; height: 150px; overflow-y: scroll;width: 22%;">
+                @include('clients.block.ads')
             </div>
 
             <div style="position: fixed; right: 50;bottom:20px; height: 55%; overflow-y: scroll;width: 22%; border-top: 3px solid #A9A9A9; border-left: 3px solid #A9A9A9">

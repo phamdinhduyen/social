@@ -7,6 +7,7 @@ use App\Http\Controllers\AddFriendshipController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\MessageController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,4 +30,4 @@ Route::get('/delete-friend', [App\Http\Controllers\AddFriendshipController::clas
 Route::get('/friend-request', [App\Http\Controllers\AddFriendshipController::class, 'friendRequest'])->name('friend-request');
 Route::get('/confirm-friend', [App\Http\Controllers\AddFriendshipController::class, 'confirmFriend'])->name('confirm-friend');
 Route::get('/friend', [App\Http\Controllers\AddFriendshipController::class, 'friend'])->name('friend');
-
+Route::get('/message', [App\Http\Controllers\MessageController::class, 'message'])->name('message');

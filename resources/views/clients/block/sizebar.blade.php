@@ -20,7 +20,7 @@
 </div>
 <div style="margin-bottom:25px">
 <i class="fas fa-comment-alt"></i>
-<a style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="message-page" >Tin nhắn</a>
+<a href="{{route('message')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="message-page" >Tin nhắn</a>
 </div>
 <div style="margin-bottom:25px">
 <i style="font-size: 24;" class="fas fa-users"></i>
