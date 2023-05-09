@@ -1,0 +1,77 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Models\AddFriend;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+class AddFriendshipController extends Controller
+{
+   
+    const _PER_PAGE = 5;
+    private $user;
+    private $friend;
+    public function __construct(){
+        $this->middleware('auth');
+        $this -> user = new User();
+        $this -> friend = new AddFriend();
+    }
+
+    public function getUser(){
+        $keywords = '';
+        $users= $this->user->get( self::_PER_PAGE, $keywords);
+        return view('home', compact('users'));
+    }
+    public function addFriend(Request $request)
+    {
+        $user_request = Auth::user()->id;
+        $acceptor = $request->input('user_id');
+        $addFriend = $this -> friend;
+        $addFriend -> user_request = $user_request;
+        $addFriend -> acceptor = $acceptor;
+        $addFriend -> save();
+       
+    }
+
+    public function deleteFriend(Request $request){
+        $acceptor = $request->input('user_id');
+        $delete = DB::table('addfriend')->where('acceptor', $acceptor)->orWhere('user_request',$acceptor)->delete();
+        //   return back();
+    }
+
+    public function friendRequest(Request $request){
+        $user_id = Auth::user()->id;
+        $users = DB::table('addfriend')
+        ->join('users', 'addfriend.user_request', '=', 'users.id')
+        ->where('addfriend.status', '=', null)
+        ->where('addfriend.acceptor', '=', $user_id)
+        ->select('users.id', 'users.name') 
+        ->get();
+        return view('clients.friendRequest', compact('users'));
+    }
+
+    public function confirmFriend(Request $request){
+        $user_request = $request->input('user_id');
+        $acceptor = Auth::user()->id;
+        $data = [
+            'acceptor' => Auth::user()->id,
+            'user_request' =>  $user_request,
+            'status' => 1
+        ];
+        $confirm = DB::table('addfriend')->where('acceptor',$acceptor)->where('user_request',$user_request)->update($data);
+    }
+
+    public function friend(Request $request){
+        $user_id = Auth::user()->id;
+        $users = DB::table('addfriend')
+        ->join('users', 'addfriend.user_request', '=', 'users.id')
+        ->where('addfriend.status', '!=', null)
+        ->where('addfriend.acceptor', '=', $user_id)
+        ->select('users.id', 'users.name') 
+        ->get();
+        return view('clients.friend', compact('users'));
+    }
+
+}
