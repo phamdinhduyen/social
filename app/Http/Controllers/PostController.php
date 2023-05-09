@@ -8,6 +8,7 @@ use App\Models\Like;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -34,12 +35,14 @@ class PostController extends Controller
             if($etx == 'jpg' || $etx == 'png') {
                 $random =  substr(str_shuffle($characters), 0, 40);
                 $fileName = time() . $random.'.'. $etx; 
-                $file->move(base_path('Uploads'), $fileName);
+                $file->move(public_path().'/Uploads/', $fileName);
             } else{
                 $fileName = null;
            }
+        } else {
+             $fileName = null;
         }
-        $fileName = null;
+       
         $data = [
             'user_id' => Auth::user()->id,
             'content' => $request->content,

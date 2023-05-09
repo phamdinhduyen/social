@@ -14,7 +14,7 @@ class Post extends Model
 
     public function get( $perPage = null, $user_id){
         $posts = DB::table($this->table)  ->join('users', 'posts.user_id', '=', 'users.id')
-        ->select('posts.id', 'posts.content','posts.created_at', 'users.name')
+        ->select('posts.id', 'posts.content','posts.image','posts.created_at', 'users.name')
         ->selectSub(function ($query) {
             $query->from('comments')
                 ->whereColumn('comments.post_id', 'posts.id')
@@ -74,5 +74,3 @@ class Post extends Model
     }
 
 }
-
-

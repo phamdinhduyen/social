@@ -203,6 +203,11 @@ $(document).ready(function() {
                                 <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>
                                 <span>{{$item->content}}<span>
                             </div>
+                            <div style="margin-top:5px">
+                                @if ($item->image)
+                                    <img height="400px" width="100%" src="{{ asset('Uploads/'.$item->image) }}" alt="image">
+                                @endif
+                            </div>
                        </div>
                        <div style="border-bottom:1px solid #A9A9A9;display:flex; justify-content: space-between;">
                             <div>
