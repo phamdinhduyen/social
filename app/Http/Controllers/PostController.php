@@ -27,12 +27,25 @@ class PostController extends Controller
             'content.required' => 'Trường này bắt buộc phải nhập'
         ];
         $request->validate($rules, $messages);
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        if ($request->has('file')) {
+            $file = $request->file;
+            $etx = $request->file->extension();
+            if($etx == 'jpg' || $etx == 'png') {
+                $random =  substr(str_shuffle($characters), 0, 40);
+                $fileName = time() . $random.'.'. $etx; 
+                $file->move(base_path('Uploads'), $fileName);
+            } else{
+                $fileName = null;
+           }
+        }
+        $fileName = null;
         $data = [
             'user_id' => Auth::user()->id,
             'content' => $request->content,
+            'image' => $fileName,
             
         ];
-       
         $post = Post::create($data);
         return redirect()->route('home');
     }

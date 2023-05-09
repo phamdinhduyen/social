@@ -173,14 +173,18 @@ $(document).ready(function() {
         <div class="col-md-6 list-post" style="height:600px;overflow-y: scroll">
             <div class="card">
                 <h5 style="text-align: center; color:red; margin-top:5px">Chào mừng bạn đến với social</h1>
-                <form style="display:flex;  justify-content: center;" action="" method="post">
+                <form style="display:flex;  justify-content: center;" action="" method="post" enctype="multipart/form-data">
                 @csrf
-                    <div class="form-group" style="width: 70%; border-radius: 25px;">
-                        <textarea style="border-radius: 25px" class="form-control" name="content" id="post" rows="1" placeholder="Xin chào, Hôm nay bạn thế nào" ></textarea>
-                        <input style="display:none" type="file" name="image">
-                        @error('content')
-                        <span style="color:red">{{$message}}</span>
-                        @enderror
+                    <div>
+                        <div class="form-group" style="width: 100%; border-radius: 25px;">
+                            <textarea style="border-radius: 5px" class="form-control" name="content" id="post" rows="1" placeholder="Xin chào, Hôm nay bạn thế nào" ></textarea>
+                            @error('content')
+                            <span style="color:red">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group" style="margin-top:14px">
+                            <input id="file" type="file" name="file" accept="image/jpeg, image/png">
+                        </div>
                     </div>
                     <div class="form-group" style=" margin-left:5px">
                         <button class="btn btn-secondary" type="submit">Đăng</button>
