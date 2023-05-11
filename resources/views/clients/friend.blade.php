@@ -34,6 +34,7 @@
             @show
         </div>
         <div class="col-md-6">
+    
         @if($users->count() == 0)
             <h4 style="text-align: center;">Bạn chưa có bạn bè</h4>
         @endif

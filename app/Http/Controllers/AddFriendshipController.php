@@ -67,9 +67,10 @@ class AddFriendshipController extends Controller
         $user_id = Auth::user()->id;
         $users = DB::table('addfriend')
         ->join('users', 'addfriend.user_request', '=', 'users.id')
-        ->where('addfriend.status', '!=', null)
         ->where('addfriend.acceptor', '=', $user_id)
+        ->orWhere('addfriend.user_request', '=', $user_id)
         ->select('users.id', 'users.name') 
+        ->where('addfriend.status', '!=', null)
         ->get();
         return view('clients.friend', compact('users'));
     }

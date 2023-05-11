@@ -72,7 +72,7 @@
                     // Handle error response
                  ;
                 }
-            });
+            },10000);
           })
      })
 </script>
@@ -104,7 +104,7 @@
             </div>
             <div>
                 <div class="list-message">
-                    @if ($messages -> count() > 0)
+                    @if ($messages -> count() != 0)
                         @foreach($messages as $key => $item)
                             <div class="message-user" style="background: #FFFFE0;border-radius:15px">
                                 @if ($item->id != $user_id)
