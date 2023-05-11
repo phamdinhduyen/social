@@ -31,3 +31,5 @@ Route::get('/friend-request', [App\Http\Controllers\AddFriendshipController::cla
 Route::get('/confirm-friend', [App\Http\Controllers\AddFriendshipController::class, 'confirmFriend'])->name('confirm-friend');
 Route::get('/friend', [App\Http\Controllers\AddFriendshipController::class, 'friend'])->name('friend');
 Route::get('/message', [App\Http\Controllers\MessageController::class, 'message'])->name('message');
+Route::get('/getmessage', [App\Http\Controllers\MessageController::class, 'getMessage']);
+Route::get('/addmessage', [App\Http\Controllers\MessageController::class, 'addMessage']);

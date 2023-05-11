@@ -11,9 +11,4 @@ class AddFriend extends Model
     use HasFactory;
     protected $table ='addfriend';
     protected $fillable = ['user_request','acceptor','status'];
-
-    // public function getFriend(){
-    //     $friend = DB::table($this->table)->get();
-    //     dd($friend);
-    // }
 }

@@ -46,8 +46,9 @@ $(document).ready(function() {
     })
     //add comment
     $(".submit-comment").click(function(e) {
-        console.log($(this));
+        
         e.preventDefault();
+        var content = $(`#content`);
         var commentErr = document.getElementsByClassName('comment-error');
         var id = $(this).attr('data-value')
         var index = $(this).attr('data-index-value')
