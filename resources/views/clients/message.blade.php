@@ -125,8 +125,19 @@
         </div>
         <div class="col-md-3" style="position: fixed; right: 50;top:80px;height:600px;overflow-y: scroll">
            <div style="margin-left:50px">
-                @if($users -> count() > 0)
-                    @forEach($users as $key => $item)
+                @if($users_acceptor->count() == 0 && $users_request->count() == 0)
+                    <h4 style="text-align: center;">Bạn chưa có bạn bè</h4>
+                @endif
+                @if($users_acceptor -> count() > 0)
+                    @forEach($users_acceptor as $key => $item)
+                        <div style="margin-top:10px">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                            <a style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
+                        </div>
+                    @endforeach
+                @endif
+                   @if($users_request -> count() > 0)
+                    @forEach($users_request as $key => $item)
                         <div style="margin-top:10px">
                             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
                             <a style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>

@@ -29,10 +29,16 @@ class MessageController extends Controller
 
     public function message(Request $request){
         $user_id = Auth::user()->id;
-        $users = DB::table('addfriend')
+        $users_acceptor = DB::table('addfriend')
         ->join('users', 'addfriend.user_request', '=', 'users.id')
-        ->where('addfriend.status', '!=', null)
         ->where('addfriend.acceptor', '=', $user_id)
+        ->where('addfriend.status', '!=', null)
+        ->select('users.id', 'users.name') 
+        ->get();
+        $users_request = DB::table('addfriend')
+        ->join('users', 'addfriend.acceptor', '=', 'users.id')
+        ->where('addfriend.user_request', '=', $user_id)
+        ->where('addfriend.status', '!=', null)
         ->select('users.id', 'users.name') 
         ->get();
 
@@ -46,7 +52,7 @@ class MessageController extends Controller
             ->orWhere('messages.recipient_id', $user_id);
         })
         ->get();
-        return view('clients.message', compact('users','messages','user_id'));
+        return view('clients.message', compact('users_acceptor','users_request','messages','user_id'));
     }
 
     public function getMessage(){
