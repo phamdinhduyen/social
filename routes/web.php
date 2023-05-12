@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\AvatarController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -19,7 +20,6 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::post('/', [App\Http\Controllers\PostController::class, 'postAdd']);
-// Route::get('/', [App\Http\Controllers\AddFriendshipController::class, 'getUser']);
 Route::post('/addcomment', [App\Http\Controllers\PostController::class, 'commentPost']);
 Route::get('/getcomment', [App\Http\Controllers\PostController::class, 'getCommentPost']);
 Route::get('/like', [App\Http\Controllers\PostController::class, 'LikePost']);
@@ -33,3 +33,4 @@ Route::get('/friend', [App\Http\Controllers\AddFriendshipController::class, 'fri
 Route::get('/message', [App\Http\Controllers\MessageController::class, 'message'])->name('message');
 Route::get('/getmessage', [App\Http\Controllers\MessageController::class, 'getMessage']);
 Route::get('/addmessage', [App\Http\Controllers\MessageController::class, 'addMessage']);
+Route::post('/profile', [App\Http\Controllers\AvatarController::class, 'avatarAdd']);
