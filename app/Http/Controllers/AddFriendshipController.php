@@ -77,8 +77,6 @@ class AddFriendshipController extends Controller
         ->where('addfriend.status', '!=', null)
         ->select('users.id', 'users.name') 
         ->get();
-
-       
         return view('clients.friend', compact('users_acceptor', 'users_request'));
     }
 

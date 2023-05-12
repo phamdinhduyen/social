@@ -192,7 +192,7 @@ $(document).ready(function() {
                             </div>
                             <div style="margin-top:5px">
                                 @if ($item->image)
-                                    <img height="400px" width="100%" src="{{ asset('Uploads/'.$item->image) }}" alt="image">
+                                    <img height="400px" width="100%" src="{{ asset('Uploads/image/'.$item->image) }}" alt="image">
                                 @endif
                             </div>
                        </div>

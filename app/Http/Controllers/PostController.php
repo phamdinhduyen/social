@@ -35,7 +35,7 @@ class PostController extends Controller
             if($etx == 'jpg' || $etx == 'png') {
                 $random =  substr(str_shuffle($characters), 0, 40);
                 $fileName = time() . $random.'.'. $etx; 
-                $file->move(public_path().'/Uploads/', $fileName);
+                $file->move(public_path().'/Uploads/image', $fileName);
             } else{
                 $fileName = null;
            }
