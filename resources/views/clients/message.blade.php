@@ -14,6 +14,8 @@
                 success: function(data) {
                 // Handle successful response
                 var user_id = data.user_id;
+                let src_avatar = data.user_name[0];
+               src_avatar = src_avatar.image_avatar
                 let htmlChats = "";
                 let htmlName = data.user_name[0];
                 htmlName = htmlName.name
@@ -31,6 +33,7 @@
                     $('#username').empty()
                     $('#chat').append(htmlChats);
                     $('#username').append(htmlName);
+                     $('#user-icon').attr('src',src_avatar);
                     formChat[0].style.display = 'block';
                 },
                 error: function(xhr, status, error) {
@@ -89,7 +92,7 @@
         <div class="col-md-6"  >
             <div class="chat" style="display:none">
                 <div class="header">
-                    <img src="user-icon.png" alt="User Icon" class="user-icon">
+                    <img src="" alt="" class="user-icon" id="user-icon">
                     <div id="username"></div>  
                 </div>
                 <div id="chat" style="overflow-y: scroll; height:60vh">      
@@ -104,6 +107,7 @@
             </div>
             <div>
                 <div class="list-message">
+                    {{-- {{dd($messages)}} --}}
                     @if ($messages -> count() != 0)
                         @foreach($messages as $key => $item)
                             <div class="message-user" style="background: #FFFFE0;border-radius:15px">
@@ -131,7 +135,7 @@
                 @if($users_acceptor -> count() > 0)
                     @forEach($users_acceptor as $key => $item)
                         <div style="margin-top:10px">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                            <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
                             <a style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
                         </div>
                     @endforeach
@@ -139,7 +143,7 @@
                    @if($users_request -> count() > 0)
                     @forEach($users_request as $key => $item)
                         <div style="margin-top:10px">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                            <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
                             <a style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
                         </div>
                     @endforeach

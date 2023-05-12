@@ -31,21 +31,21 @@ class MessageController extends Controller
         $user_id = Auth::user()->id;
         $users_acceptor = DB::table('addfriend')
         ->join('users', 'addfriend.user_request', '=', 'users.id')
+        ->leftJoin('avatar', 'avatar.user_id', '=', 'users.id')
         ->where('addfriend.acceptor', '=', $user_id)
         ->where('addfriend.status', '!=', null)
-        ->select('users.id', 'users.name') 
+        ->select('users.id', 'users.name','avatar.image_avatar') 
         ->get();
         $users_request = DB::table('addfriend')
         ->join('users', 'addfriend.acceptor', '=', 'users.id')
+        ->leftJoin('avatar', 'avatar.user_id', '=', 'users.id')
         ->where('addfriend.user_request', '=', $user_id)
         ->where('addfriend.status', '!=', null)
-        ->select('users.id', 'users.name') 
+        ->select('users.id', 'users.name','avatar.image_avatar') 
         ->get();
 
         $messages = DB::table('messages')
-            ->join('users', function ($join) {
-            $join->on('messages.user_id', '=', 'users.id');
-        })
+        ->join('users', 'messages.user_id', '=', 'users.id')
         ->select('users.id', 'messages.content', 'users.name')
         ->where(function ($query) use ($user_id) {
             $query->where('messages.user_id', $user_id)
@@ -58,7 +58,10 @@ class MessageController extends Controller
     public function getMessage(){
         $user_id = Auth::user()->id;
         $recipient_id = $_GET["recipient_id"];
-        $user_name = DB::table('users')->where('id', $recipient_id)->select('id','name')->get();
+        $user_name = DB::table('users')
+        ->join('avatar', 'avatar.user_id','users.id')
+        ->where('users.id', $recipient_id)
+        ->select('users.id', 'users.name', 'avatar.image_avatar')->get();
         $getMessage= $this->message->getMessage($user_id, $recipient_id);
         return response()->json([
             'user_id' => $user_id,

@@ -10,7 +10,7 @@
             <div>
               @if ($users)
                 @foreach($users as $key => $item)
-                  <img style="margin-left:20%" src="{{ asset('Uploads/image/'.$item->image) }}" alt="Avatar" class="avatar">
+                  <img style="margin-left:20%" src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar">
                   <h4 style="margin-top: 2%">{{$item->name}}</h4>
                 @endforeach
                   

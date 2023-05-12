@@ -26,7 +26,7 @@ class AvatarController extends Controller
        
         $data = [
             'user_id' => Auth::user()->id,
-            'image' => $fileName,
+            'image_avatar' => $fileName,
             
         ];
         $avatar = Avatar::create($data);

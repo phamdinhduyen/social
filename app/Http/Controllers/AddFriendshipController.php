@@ -45,9 +45,10 @@ class AddFriendshipController extends Controller
         $user_id = Auth::user()->id;
         $users = DB::table('addfriend')
         ->join('users', 'addfriend.user_request', '=', 'users.id')
+        ->leftJoin('avatar', 'avatar.user_id', '=', 'users.id')
         ->where('addfriend.status', '=', null)
         ->where('addfriend.acceptor', '=', $user_id)
-        ->select('users.id', 'users.name') 
+        ->select('users.id', 'users.name','avatar.image_avatar') 
         ->get();
         return view('clients.friendRequest', compact('users'));
     }
@@ -67,15 +68,17 @@ class AddFriendshipController extends Controller
         $user_id = Auth::user()->id;
         $users_acceptor = DB::table('addfriend')
         ->join('users', 'addfriend.user_request', '=', 'users.id')
+        ->leftJoin('avatar', 'avatar.user_id', '=', 'users.id')
         ->where('addfriend.acceptor', '=', $user_id)
         ->where('addfriend.status', '!=', null)
-        ->select('users.id', 'users.name') 
+        ->select('users.id', 'users.name', 'avatar.image_avatar') 
         ->get();
         $users_request = DB::table('addfriend')
         ->join('users', 'addfriend.acceptor', '=', 'users.id')
+        ->leftJoin('avatar', 'avatar.user_id', '=', 'users.id')
         ->where('addfriend.user_request', '=', $user_id)
         ->where('addfriend.status', '!=', null)
-        ->select('users.id', 'users.name') 
+        ->select('users.id', 'users.name','avatar.image_avatar') 
         ->get();
         return view('clients.friend', compact('users_acceptor', 'users_request'));
     }

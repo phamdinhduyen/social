@@ -178,15 +178,13 @@ $(document).ready(function() {
                     </div>
                 </form>
             </div>
-            {{-- {{dd($allPost)}} --}}
             @if($allPost -> count() > 0)
                 @foreach($allPost as $key => $item)
                     <div class="card post" data-post-id="{{$item->id}}" style="margin-top:5px; padding:0px">
                        <div style="border-bottom:1px solid #A9A9A9">
                             <div style="margin-left:10px;">
                                 <div>
-
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                                    <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
                                     <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
                                 </div>
                                 <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>
