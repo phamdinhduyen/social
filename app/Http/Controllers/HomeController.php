@@ -35,13 +35,21 @@ class HomeController extends Controller
     {
         $user_id = Auth::user()->id;
         $allPost= $this->post->get( self::_PER_PAGE, $user_id);
-       $users = DB::table('users')
+        $id = DB::table('addfriend')->select('user_request', 'acceptor')->get();
+        $friends_id = [];
+        foreach($id as $key => $item){
+            $array[] = $item->user_request;
+            $array[] = $item->acceptor;
+        }
+        $uniqueFriends_id = array_unique($array);
+
+        $users = DB::table('users')->inRandomOrder()
         ->leftJoin('avatar', 'avatar.user_id', '=', 'users.id')
         ->where('users.id', '!=',$user_id  )
+        ->whereNotIn('users.id', $uniqueFriends_id)
         ->orderBy('id', 'desc')
         ->select('users.id', 'users.name', 'avatar.image_avatar')
-    
-        ->distinct()
+        ->take(50)
         ->get();
             // dd($users );
         return view('home', compact('allPost','users'));
