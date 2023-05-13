@@ -7,8 +7,12 @@
 </div>
 
 <div style="margin-bottom:25px">
-<i style="font-size: 24;" class="fas fa-user"></i>
-<a href="{{route('profile')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="profile-page" >Trang cá nhân</a>
+@if( $avatar_users)
+ @foreach($avatar_users as $key => $item)
+    <img src="{{ asset('Uploads/image/'.$item->image_avatar	) }}" alt="" class="avatar" style="width: 30px;height: 30px;border-radius: 50%;border:1px solid #A9A9A9">
+ @endforeach
+@endif
+<a href="{{route('profile')}}" style=" font-weight:900;text-decoration: none; font-size:20px ;" type="submit" class="profile-page" >Trang cá nhân</a>
 </div>
 <div style="margin-bottom:25px">
 <i style="font-size: 24;" class="fas fa-user"></i>
@@ -19,8 +23,8 @@
 <a href="{{route('friend')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="friend" >Bạn bè</a>
 </div>
 <div style="margin-bottom:25px">
-<i class="fas fa-comment-alt"></i>
-<a href="{{route('message')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="message-page" >Tin nhắn</a>
+<i  style="font-size: 20" class="fas fa-comment-alt"></i>
+<a href="{{route('message')}}" style=" font-weight:900;text-decoration: none; font-size:20px;" type="submit" class="message-page" >Tin nhắn</a>
 </div>
 <div style="margin-bottom:25px">
 <i style="font-size: 24;" class="fas fa-users"></i>

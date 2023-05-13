@@ -22,23 +22,18 @@ class AvatarController extends Controller
            }
         } else {
              $fileName = null;
-        }
-       
+        }  
         $data = [
-                'user_id' => Auth::user()->id,
-                'image_avatar' => $fileName,
-            ];  
-
+                    'user_id' => Auth::user()->id,
+                    'image_avatar' => $fileName,
+                ];
         $data_avatar = Avatar::where('user_id', Auth::user()->id)->get();
-
         if ($data_avatar->count() != 0) {
             $avatar = $data_avatar->first();
             $avatar->update($data);
         } else {
             $avatar = Avatar::create($data);
-        }
-
-        
+        }   
         return redirect()->route('profile');
     }
 

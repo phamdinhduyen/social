@@ -35,6 +35,7 @@ class HomeController extends Controller
     {
         $user_id = Auth::user()->id;
         $allPost= $this->post->get( self::_PER_PAGE, $user_id);
+        $avatar_users = $this->avatar->users($user_id);
         $id = DB::table('addfriend')->select('user_request', 'acceptor')->get();
         $friends_id = [];
         foreach($id as $key => $item){
@@ -52,7 +53,7 @@ class HomeController extends Controller
         ->take(50)
         ->get();
             // dd($users );
-        return view('home', compact('allPost','users'));
+        return view('home', compact('allPost','users','avatar_users'));
     }
 
     public function Profile()
