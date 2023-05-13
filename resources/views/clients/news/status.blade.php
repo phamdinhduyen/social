@@ -184,7 +184,7 @@ $(document).ready(function() {
                        <div style="border-bottom:1px solid #A9A9A9">
                             <div style="margin-left:10px;">
                                 <div>
-                                    <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                                    <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
                                     <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
                                 </div>
                                 <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>

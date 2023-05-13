@@ -7,23 +7,23 @@
 @section('content')
 <div class="container" >
     <div style="display: flex; margin:5px">
-        <div class="col-md-3">
+        <div class="col-md-3 " style="margin-left:-5%" >
             @section('sizebar')
                 @include('clients.block.sizebar')
             @show
         </div>
-        <div class="col-md-6 list-post" style="height:600px;overflow-y: scroll">
+        <div class="col-md-6 list-post" style="height:600px;overflow-y: scroll; ">
             @section('status')
                 @include('clients.news.status')
             @show
         </div>
-        <div class="col-md-3" >
+        <div class="col-md-3" style="margin-left:10%" >
             
-            <div style="position: fixed; right: 50;top:80px; height: 150px; overflow-y: scroll;width: 22%;">
+            <div style="position: fixed; top:80px; height: 150px; overflow-y: scroll;width: 22%;">
                 @include('clients.block.ads')
             </div>
 
-            <div style="position: fixed; right: 50;bottom:20px; height: 55%; overflow-y: scroll;width: 22%; border-top: 3px solid #A9A9A9; border-left: 3px solid #A9A9A9">
+            <div style="position: fixed; bottom:20px; height: 55%; overflow-y: scroll;width: 22%; border-top: 3px solid #A9A9A9; border-left: 3px solid #A9A9A9">
                 @include('clients.block.addFriend')
             </div>
         </div>
