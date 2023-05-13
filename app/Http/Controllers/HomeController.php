@@ -35,16 +35,15 @@ class HomeController extends Controller
     {
         $user_id = Auth::user()->id;
         $allPost= $this->post->get( self::_PER_PAGE, $user_id);
-        $users = DB::table('users')
-            ->leftJoin('addfriend', function($join) use ($user_id) {
-                $join->on('users.id', '=', 'addfriend.acceptor')
-                    ->where('addfriend.user_request', '=', $user_id);
-            })
-            ->select('users.id', 'users.name')
-            ->whereNull('addfriend.acceptor')
-            ->where('users.id', '!=', $user_id)
-            ->orderBy('id', 'desc')
-            ->get();
+       $users = DB::table('users')
+        ->leftJoin('avatar', 'avatar.user_id', '=', 'users.id')
+        ->where('users.id', '!=',$user_id  )
+        ->orderBy('id', 'desc')
+        ->select('users.id', 'users.name', 'avatar.image_avatar')
+    
+        ->distinct()
+        ->get();
+            // dd($users );
         return view('home', compact('allPost','users'));
     }
 
