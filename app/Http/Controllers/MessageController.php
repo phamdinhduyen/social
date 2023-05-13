@@ -7,14 +7,16 @@ use App\Models\AddFriend;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Avatar;
 class MessageController extends Controller
 {
     private $message;
+    private $avatar;
     public function __construct()
     {
         $this->middleware('auth');
         $this-> message = new Message;
+        $this -> avatar = new Avatar();
     }
     public function addMessage(Request $request){
         
@@ -52,7 +54,8 @@ class MessageController extends Controller
             ->orWhere('messages.recipient_id', $user_id);
         })
         ->get();
-        return view('clients.message', compact('users_acceptor','users_request','messages','user_id'));
+        $avatar_users = $this->avatar->users($user_id);
+        return view('clients.message', compact('users_acceptor','users_request','messages','user_id','avatar_users'));
     }
 
     public function getMessage(){

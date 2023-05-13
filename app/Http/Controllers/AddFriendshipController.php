@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\AddFriend;
 use App\Models\User;
+use App\Models\Avatar;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 class AddFriendshipController extends Controller
@@ -13,9 +14,11 @@ class AddFriendshipController extends Controller
     const _PER_PAGE = 5;
     private $user;
     private $friend;
+     private $avatar;
     public function __construct(){
         $this->middleware('auth');
         $this -> user = new User();
+        $this -> avatar = new Avatar();
         $this -> friend = new AddFriend();
     }
 
@@ -50,7 +53,8 @@ class AddFriendshipController extends Controller
         ->where('addfriend.acceptor', '=', $user_id)
         ->select('users.id', 'users.name','avatar.image_avatar') 
         ->get();
-        return view('clients.friendRequest', compact('users'));
+        $avatar_users = $this->avatar->users($user_id);
+        return view('clients.friendRequest', compact('users','avatar_users'));
     }
 
     public function confirmFriend(Request $request){
@@ -65,6 +69,7 @@ class AddFriendshipController extends Controller
     }
 
     public function friend(Request $request){
+
         $user_id = Auth::user()->id;
         $users_acceptor = DB::table('addfriend')
         ->join('users', 'addfriend.user_request', '=', 'users.id')
@@ -80,7 +85,8 @@ class AddFriendshipController extends Controller
         ->where('addfriend.status', '!=', null)
         ->select('users.id', 'users.name','avatar.image_avatar') 
         ->get();
-        return view('clients.friend', compact('users_acceptor', 'users_request'));
+         $avatar_users = $this->avatar->users($user_id);
+        return view('clients.friend', compact('users_acceptor', 'users_request','avatar_users'));
     }
 
 }

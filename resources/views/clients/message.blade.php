@@ -15,7 +15,8 @@
                 // Handle successful response
                 var user_id = data.user_id;
                 let src_avatar = data.user_name[0];
-               src_avatar = src_avatar.image_avatar
+                src_avatar = src_avatar.image_avatar
+           
                 let htmlChats = "";
                 let htmlName = data.user_name[0];
                 htmlName = htmlName.name
@@ -33,7 +34,12 @@
                     $('#username').empty()
                     $('#chat').append(htmlChats);
                     $('#username').append(htmlName);
-                     $('#user-icon').attr('src',src_avatar);
+                    if (src_avatar != null) {
+                            $('#user-icon').attr('src', 'Uploads/image/' + src_avatar);
+                        } else {
+                            $('#user-icon').attr('src', '')
+                        }
+                       
                     formChat[0].style.display = 'block';
                 },
                 error: function(xhr, status, error) {
@@ -93,7 +99,7 @@
             <div class="chat" style="display:none">
                 <div class="header">
                     <img src="" alt="" class="user-icon" id="user-icon">
-                    <div id="username"></div>  
+                    <div style="margin-left: 10px" id="username"></div>  
                 </div>
                 <div id="chat" style="overflow-y: scroll; height:60vh">      
                 </div>
