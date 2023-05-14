@@ -39,10 +39,10 @@ class HomeController extends Controller
         $id = DB::table('addfriend')->select('user_request', 'acceptor')->get();
         $friends_id = [];
         foreach($id as $key => $item){
-            $array[] = $item->user_request;
-            $array[] = $item->acceptor;
+             $friends_id = $item->user_request;
+             $friends_id = $item->acceptor;
         }
-        $uniqueFriends_id = array_unique($array);
+        $uniqueFriends_id = array_unique($friends_id);
 
         $users = DB::table('users')->inRandomOrder()
         ->leftJoin('avatar', 'avatar.user_id', '=', 'users.id')
