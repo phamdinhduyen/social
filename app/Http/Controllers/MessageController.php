@@ -61,16 +61,30 @@ class MessageController extends Controller
     public function getMessage(){
         $user_id = Auth::user()->id;
         $recipient_id = $_GET["recipient_id"];
-        $user_name = DB::table('users')
-        ->join('avatar', 'avatar.user_id','users.id')
-        ->where('users.id', $recipient_id)
-        ->select('users.id', 'users.name', 'avatar.image_avatar')->get();
-        $getMessage= $this->message->getMessage($user_id, $recipient_id);
-        return response()->json([
-            'user_id' => $user_id,
-            'messages' => $getMessage,
-            'user_name' =>  $user_name
-        ]);
+        $id = DB::table('avatar')->select('user_id')->where('user_id',$recipient_id)->get();
+        $avatar_id = [];
+            if ($id->count() != 0) {
+                $user_name = DB::table('users')
+                ->join('avatar', 'avatar.user_id','users.id')
+                ->where('users.id', $recipient_id)
+                ->select('users.id', 'users.name', 'avatar.image_avatar')->get();
+                $getMessage= $this->message->getMessage($user_id, $recipient_id);
+                return response()->json([
+                    'user_id' => $user_id,
+                    'messages' => $getMessage,
+                    'user_name' =>  $user_name
+                ]);
+            } else {
+                $user_name = DB::table('users')
+                ->where('users.id', $recipient_id)
+                ->select('users.id', 'users.name')->get();
+                $getMessage= $this->message->getMessage($user_id, $recipient_id);
+                return response()->json([
+                    'user_id' => $user_id,
+                    'messages' => $getMessage,
+                    'user_name' =>  $user_name
+                ]);
+            }
     }
 
     

@@ -15,7 +15,12 @@
                 // Handle successful response
                 var user_id = data.user_id;
                 let src_avatar = data.user_name[0];
-                src_avatar = src_avatar.image_avatar
+                if(src_avatar != undefined){
+                    src_avatar = src_avatar.image_avatar
+                } else {
+                    src_avatar = ""
+                };
+                
            
                 let htmlChats = "";
                 let htmlName = data.user_name[0];
