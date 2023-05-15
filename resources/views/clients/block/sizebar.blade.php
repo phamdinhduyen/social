@@ -12,7 +12,7 @@
       <a href="{{route('home')}}" style="display: inline-block;">
          <i style="font-size: 24px;" class="fas fa-home"></i>
       </a>
-      <a href="{{route('home')}}" style=" font-weight:900;text-decoration: none; font-size:20px "type="submit"  class="home-page">Trang chủ</a>
+      <a href="{{route('home')}}" style=" font-weight:900;text-decoration: none; font-size:20px "type="submit"  class="home-page sizebar">Trang chủ</a>
    </div>
 
    <div style="margin-bottom:25px ;">
@@ -27,52 +27,59 @@
                   <img src="" alt="" class="avatar" style="width: 30px;height: 30px;border-radius: 50%;border:1px solid #A9A9A9">
             </a>
          @endif
-            <a href="{{route('profile')}}" style=" font-weight:900;text-decoration: none; font-size:20px ;" type="submit" class="profile-page" >Trang cá nhân</a>
+            <a href="{{route('profile')}}" style=" font-weight:900;text-decoration: none; font-size:20px ;" type="submit" class="profile-page sizebar" >Trang cá nhân</a>
    </div>
    <div style="margin-bottom:25px">
       <a href="{{route('friend-request')}}" style="display: inline-block;">
-         <i style="font-size: 24;" class="fas fa-user"></i>
+         <i style="font-size: 24px;" class="fas fa-user"></i>
       </a>
-      <a href="{{route('friend-request')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="profile-page" >Lời mời kết bạn</a>
+      <a href="{{route('friend-request')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="profile-page sizebar" >Lời mời kết bạn</a>
    </div>
    <div style="margin-bottom:25px">
       <a href="{{route('friend')}}" style="display: inline-block;">
-         <i  style="font-size: 24;"  style="font-size: 24;" class="fas fa-users"></i>
+         <i  style="font-size: 24px;" class="fas fa-users"></i>
       </a>
-      <a href="{{route('friend')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="friend" >Bạn bè</a>
+      <a href="{{route('friend')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="friend sizebar" >Bạn bè</a>
    </div>
    <div style="margin-bottom:25px">
       <a href="{{route('message')}}" style="display: inline-block;">
-         <i  style="font-size: 20" class="fas fa-comment-alt"></i>
+         <i  style="font-size: 24px" class="fas fa-comment-alt"></i>
       </a>
-      <a href="{{route('message')}}" style=" font-weight:900;text-decoration: none; font-size:20px;" type="submit" class="message-page" >Tin nhắn</a>
+      <a href="{{route('message')}}" style=" font-weight:900;text-decoration: none; font-size:20px;" type="submit" class="message-page sizebar" >Tin nhắn</a>
    </div>
    <div style="margin-bottom:25px">
       <a href="" style="display: inline-block;">
-         <i style="font-size: 24;" class="fas fa-users"></i>
+         <i style="font-size: 24px;" class="fas fa-users"></i>
       </a>
-      <a  style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="group-page">Nhóm</a> 
+      <a  style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="group-page sizebar">Nhóm</a> 
    </div>
    <div style="margin-bottom:25px">
       <a href="" style="display: inline-block;">
-         <i style="font-size: 24;" class="fas fa-pager"></i>
+         <i style="font-size: 24px;" class="fas fa-pager"></i>
       </a>
-      <a  style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="page">Trang</a> 
+      <a  style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="page sizebar">Trang</a> 
    </div>
    <div style="margin-bottom:25px">
       <a href="" style="display: inline-block;">
-         <i style="font-size: 24;" class="fas fa-shopping-cart"></i>
+         <i style="font-size: 24px;" class="fas fa-shopping-cart"></i>
       </a>
-   <a style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="shop-page" >Mua sắm</a> 
+   <a style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="shop-page sizebar" >Mua sắm</a> 
    </div>
    <div style="margin-bottom:25px">
       <a href="" style="display: inline-block;">
-         <i style="font-size: 24;" class="fas fa-place-of-worship"></i>
+         <i style="font-size: 24px;" class="fas fa-place-of-worship"></i>
       </a>
-      <a style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="recruitment" >Việc làm</a>
+      <a style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="recruitment sizebar" >Việc làm</a>
    </div>
 </div>
    
 </body>
 </html>
 
+<style>
+   @media only screen and (min-width: 320px) and (max-width: 800px) {
+   .sizebar{
+      display: none
+   }
+   }
+</style>

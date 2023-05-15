@@ -1,3 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+</head>
+<body>
+      <div class="card" >
+            <div>
+                <form class="form-status"  action="" method="post" enctype="multipart/form-data">
+                @csrf
+                    <div>
+                        <div class="form-group" style="width: 100%; border-radius: 25px;">
+                            <textarea style="border-radius: 5px ; width:100%" class="form-control" name="content" id="post" rows="1" placeholder="Xin chào, Hôm nay bạn thế nào" ></textarea>
+                            @error('content')
+                            <span style="color:red">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group" style="margin-top: 4px; margin-bottom:4px">
+                            <input id="file" type="file" name="file" accept="image/jpeg, image/png">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-secondary" type="submit">Đăng</button>
+                    </div>
+            </form>
+            </div>
+    </div>
+    <div>
+        @if($allPost -> count() > 0)
+                @foreach($allPost as $key => $item)
+                    <div class="card post" data-post-id="{{$item->id}}" style="margin-top:5px; padding:0px">
+                       <div style="border-bottom:1px solid #A9A9A9">
+                            <div style="margin-left:10px;">
+                                <div>
+                                    <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                                    <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
+                                </div>
+                                <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>
+                                <span>{{$item->content}}<span>
+                            </div>
+                            <div style="margin-top:5px">
+                                @if ($item->image)
+                                    <img  height="auto" width="100%" src="{{ asset('Uploads/image/'.$item->image) }}" alt="image">
+                                @endif
+                            </div>
+                       </div>
+                       <div style="border-bottom:1px solid #A9A9A9;display:flex; justify-content: space-between;">
+                            <div>
+                                <span style="margin-left:10px;color: 2F4F4F">{{$item->like_count }}</span>
+                                <span style="color: 2F4F4F">người khác đã thích</span>
+                            </div>
+                            <div>
+                                <span style="color: 2F4F4F">{{$item->comment_count }}</span>
+                                <span style="margin-right:10px;color: 2F4F4F">Bình luận</span>
+                            </div>
+                        </div>
+                        
+                        <div style="border-bottom:1px solid #A9A9A9 ">
+                            <div style="display:flex; justify-content: space-around; ">
+                                <div> 
+                                    @if($item->is_liked == 0)
+                                        <div style="display:flex">
+                                            <div style="margin-right:3px;">
+                                                <i style="color:#A9A9A9" class="fas fa-heart heart"></i>
+                                            </div>
+                                            <div>
+                                                <a style="text-decoration: none; font-weight:900" type="submit" class="like" data-value="{{$item->id}}" data-index-value="{{$key}}">Thích</a>
+                                                <a style="text-decoration: none;  font-weight:900; display:none" type="submit" class="unlike" data-value="{{$item->id}}" data-index-value="{{$key}}">Bỏ Thích</a>
+                                            </div>
+                                        </div>  
+                                    @else 
+                                    <div style="display:flex">
+                                            <div style="margin-right:3px;">
+                                            <i style="color:red" class="fas fa-heart heart"></i> 
+                                            </div>
+                                            <div>
+                                                <a style="text-decoration: none;  font-weight:900" type="submit" class="unlike" data-value="{{$item->id}}" data-index-value="{{$key}}">Bỏ Thích</a>
+                                                <a style="text-decoration: none; font-weight:900; display:none" type="submit" class="like" data-value="{{$item->id}}" data-index-value="{{$key}}">Thích</a>  
+                                            </div>
+                                        </div>
+                                    @endif
+                                </div> 
+                                <div>
+                                    <i style="color:A9A9A9" class="fas fa-comment-alt"></i>
+                                    <a style="text-decoration: none;font-weight:900" type="submit" class="comments" data-value="{{$item->id}}" data-index-value="{{$key}}">Bình luận</a>
+                                </div>
+                                <div>
+                                    <i style="color:A9A9A9" class="fas fa-share-square"></i>
+                                    <a style="text-decoration: none;font-weight:900" type="submit" class="share">Chia sẻ</a>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="form-comment" style="display: none;">
+                            <form id="comments-form" style="display:flex; margin-top:5px" action="" method="get">
+                                @csrf
+                                <div class="form-group" style="width: 70%; margin-left:5px; border-radius: 25px;">
+                                    <textarea style="border-radius: 5px" class="form-control" name="content" id="comments-post-{{$item->id}}" rows="1" ></textarea>
+                                    <span class="comment-error"></span>
+                                </div>
+                                <div class="form-group" style=" margin-left:5px">
+                                    <button style="text-decoration: none;font-weight:900" type="submit" class="btn-secondary submit-comment" data-value="{{$item->id}}" data-index-value="{{$key}}"> Bình luận </button>
+                                </div>
+                            </form> 
+                            
+                            <div class="comment-success"></div>
+                       </div>
+                    </div>  
+                @endforeach
+            @endif
+    </div>
+</body>
+</html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 $(document).ready(function() {
@@ -159,103 +273,24 @@ $(document).ready(function() {
     })
 })
 </script>
- <div class="card" >
-                <form style="margin-top:5px; display:flex;  justify-content: center;" action="" method="post" enctype="multipart/form-data">
-                @csrf
-                    <div>
-                        <div class="form-group" style="width: 100%; border-radius: 25px;">
-                            <textarea style="border-radius: 5px" class="form-control" name="content" id="post" rows="1" placeholder="Xin chào, Hôm nay bạn thế nào" ></textarea>
-                            @error('content')
-                            <span style="color:red">{{$message}}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group" style="margin-top:14px">
-                            <input id="file" type="file" name="file" accept="image/jpeg, image/png">
-                        </div>
-                    </div>
-                    <div class="form-group" style=" margin-left:5px">
-                        <button class="btn btn-secondary" type="submit">Đăng</button>
-                    </div>
-                </form>
-            </div>
-            @if($allPost -> count() > 0)
-                @foreach($allPost as $key => $item)
-                    <div class="card post" data-post-id="{{$item->id}}" style="margin-top:5px; padding:0px">
-                       <div style="border-bottom:1px solid #A9A9A9">
-                            <div style="margin-left:10px;">
-                                <div>
-                                    <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-                                    <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
-                                </div>
-                                <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>
-                                <span>{{$item->content}}<span>
-                            </div>
-                            <div style="margin-top:5px">
-                                @if ($item->image)
-                                    <img height="400px" width="100%" src="{{ asset('Uploads/image/'.$item->image) }}" alt="image">
-                                @endif
-                            </div>
-                       </div>
-                       <div style="border-bottom:1px solid #A9A9A9;display:flex; justify-content: space-between;">
-                            <div>
-                                <span style="margin-left:10px;color: 2F4F4F">{{$item->like_count }}</span>
-                                <span style="color: 2F4F4F">người khác đã thích</span>
-                            </div>
-                            <div>
-                                <span style="color: 2F4F4F">{{$item->comment_count }}</span>
-                                <span style="margin-right:10px;color: 2F4F4F">Bình luận</span>
-                            </div>
-                        </div>
-                        
-                        <div style="border-bottom:1px solid #A9A9A9 ">
-                            <div style="display:flex; justify-content: space-around; ">
-                                <div> 
-                                    @if($item->is_liked == 0)
-                                        <div style="display:flex">
-                                            <div style="margin-right:3px; margin-top: 4px">
-                                                <i style="color:#A9A9A9" class="fas fa-heart heart"></i>
-                                            </div>
-                                            <div>
-                                                <a style="text-decoration: none; font-weight:900" type="submit" class="like" data-value="{{$item->id}}" data-index-value="{{$key}}">Thích</a>
-                                                <a style="text-decoration: none;  font-weight:900; display:none" type="submit" class="unlike" data-value="{{$item->id}}" data-index-value="{{$key}}">Bỏ Thích</a>
-                                            </div>
-                                        </div>  
-                                    @else 
-                                    <div style="display:flex">
-                                            <div style="margin-right:3px; margin-top: 4px">
-                                            <i style="color:red" class="fas fa-heart heart"></i> 
-                                            </div>
-                                            <div>
-                                                <a style="text-decoration: none;  font-weight:900" type="submit" class="unlike" data-value="{{$item->id}}" data-index-value="{{$key}}">Bỏ Thích</a>
-                                                <a style="text-decoration: none; font-weight:900; display:none" type="submit" class="like" data-value="{{$item->id}}" data-index-value="{{$key}}">Thích</a>  
-                                            </div>
-                                        </div>
-                                    @endif
-                                </div> 
-                                <div>
-                                    <i style="color:A9A9A9" class="fas fa-comment-alt"></i>
-                                    <a style="text-decoration: none;font-weight:900" type="submit" class="comments" data-value="{{$item->id}}" data-index-value="{{$key}}">Bình luận</a>
-                                </div>
-                                <div>
-                                    <i style="color:A9A9A9" class="fas fa-share-square"></i>
-                                    <a style="text-decoration: none;font-weight:900" type="submit" class="share">Chia sẻ</a>
-                                </div>
-                            </div>
-                        </div>  
-                        <div class="form-comment" style="display: none;">
-                            <form id="comments-form" style="display:flex; margin-top:5px" action="" method="get">
-                                @csrf
-                                <div class="form-group" style="width: 70%; margin-left:5px; border-radius: 25px;">
-                                    <textarea style="border-radius: 5px" class="form-control" name="content" id="comments-post-{{$item->id}}" rows="1" ></textarea>
-                                    <span class="comment-error"></span>
-                                </div>
-                                <div class="form-group" style=" margin-left:5px">
-                                    <button style="text-decoration: none;font-weight:900" type="submit" class="btn-secondary submit-comment" data-value="{{$item->id}}" data-index-value="{{$key}}"> Bình luận </button>
-                                </div>
-                            </form> 
-                            
-                            <div class="comment-success"></div>
-                       </div>
-                    </div>  
-                @endforeach
-            @endif
+
+<style>
+@media only screen and (min-width: 600px) and (max-width: 1920px) {
+.form-status{
+    display: flex;
+    margin-top:4px;
+    justify-content: center
+   }
+}
+@media only screen and (min-width: 320px) and (max-width: 414px) {
+   .form-group{
+       width: 100% !important;
+      justify-content: flex-start
+   }
+   .form-status{
+     margin-top:4px
+   }
+}
+ 
+</style>
+  
