@@ -61,7 +61,7 @@ class HomeController extends Controller
             ->take(50)
             ->get();    
         }
-        return view('home', compact('allPost','users','avatar_users'));
+        return view('clients.home', compact('allPost','users','avatar_users'));
     }
 
     public function Profile()

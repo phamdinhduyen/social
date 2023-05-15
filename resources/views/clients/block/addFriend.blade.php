@@ -1,4 +1,30 @@
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+</head>
+<body>
+     <div>
+          @if($users)
+               @foreach($users as $key => $item)
+               <div style="margin-bottom:20px; display:flex; justify-content: space-between; margin:15px;">
+                    <div>
+                         <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                         <a href="{{route('profile')}}" style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name">{{$item->name}}</a>
+                    </div>
+                    <div>
+                         <button class="btn btn-sm add-friend" type="submit" style="background-color:#159b4b"  data-value="{{$item->id}}" data-index-value="{{$key}}" >Kết bạn</button>
+                         <button class="btn btn-sm delete-friend" type="submit" style="background-color:#159b4b; display:none" data-value="{{$item->id}}" data-index-value="{{$key}}" >Hủy kết bạn</button>
+                    </div>
+               </div>
+               @endforeach
+          @endif
+     </div> 
+</body>
+</html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
      $(document).ready(function(){
@@ -50,20 +76,7 @@
 
 
 
-@if($users)
-   @foreach($users as $key => $item)
-   <div style="margin-bottom:20px; display:flex; justify-content: space-between; margin:15px;">
-     <div>
-          <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-          <a href="{{route('profile')}}" style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name">{{$item->name}}</a>
-     </div>
-     <div>
-          <button class="btn btn-sm add-friend" type="submit" style="background-color:#159b4b"  data-value="{{$item->id}}" data-index-value="{{$key}}" >Kết bạn</button>
-          <button class="btn btn-sm delete-friend" type="submit" style="background-color:#159b4b; display:none" data-value="{{$item->id}}" data-index-value="{{$key}}" >Hủy kết bạn</button>
-     </div>
-</div>
-   @endforeach
-@endif
+
 
 
     

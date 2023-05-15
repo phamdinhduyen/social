@@ -1,3 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tin nhắn</title>
+</head>
+<body>
+    @extends('layouts.app')
+    @section('content')
+    <div class="container" >
+        <div style="display: flex; margin:5px">
+            <div class="col-md-3"  style="margin-left:-5%">
+                @section('sizebar')
+                @include('clients.block.sizebar')
+                @show
+            </div>
+            <div class="col-md-6">
+                <div class="chat" style="display:none">
+                    <div class="header">
+                        <img src="" alt="" class="user-icon" id="user-icon">
+                        <div style="margin-left: 10px" id="username"></div>  
+                    </div>
+                    <div id="chat" style="overflow-y: scroll; height:60vh">      
+                        </div>
+                            <form action="", method="">
+                                @csrf
+                                <div class="input">
+                                    <input width="100%" type="text" id="content" placeholder="Type your message...">
+                                    <a class="btn btn-sm btn-primary" type="submit" id="send" data-value="">Gửi</a>
+                                </div> 
+                            </form> 
+                        </div>
+                    <div>
+                    <div class="list-message">
+                        @if ($messages -> count() != 0)
+                            @foreach($messages as $key => $item)
+                                <div class="message-user" style="background: #FFFFE0;border-radius:15px">
+                                    @if ($item->id != $user_id)
+                                        <div style="margin-left:20px">
+                                            <a style="font-size: 15px; font-weight:900;text-decoration: none;"  style="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
+                                            <p>{{$item->content}}</p>
+                                        </div>
+                                    @endif
+                                </div>
+                            @endforeach
+                            @else
+                                <span>Bạn chưa có tin nhắn nào. Hãy click vào tên bạn bè để trò chuyện</span>
+                        @endif
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div style="margin-left:50px">
+                    @if($users_acceptor->count() == 0 && $users_request->count() == 0)
+                        <h4 style="text-align: center;">Bạn chưa có bạn bè</h4>
+                    @endif
+                    @if($users_acceptor -> count() > 0)
+                        @forEach($users_acceptor as $key => $item)
+                            <div style="margin-top:10px">
+                                <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                                <a style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
+                            </div>
+                        @endforeach
+                    @endif
+                    @if($users_request -> count() > 0)
+                        @forEach($users_request as $key => $item)
+                            <div style="margin-top:10px">
+                                <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                                <a style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
+                            </div>
+                        @endforeach
+                    @endif
+                </div>
+            </div>
+        </div>
+           
+        </div>
+    </div>
+    @endsection
+</body>
+</html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
      $(document).ready(function(){
@@ -91,80 +175,7 @@
      })
 </script>
 
-@extends('layouts.app')
-@section('content')
-<div class="container" >
-    <div style="display: flex; margin:5px">
-        <div class="col-md-3">
-            @section('sizebar')
-             @include('clients.block.sizebar')
-            @show
-        </div>
-        <div class="col-md-6"  >
-            <div class="chat" style="display:none">
-                <div class="header">
-                    <img src="" alt="" class="user-icon" id="user-icon">
-                    <div style="margin-left: 10px" id="username"></div>  
-                </div>
-                <div id="chat" style="overflow-y: scroll; height:60vh">      
-                </div>
-                    <form action="", method="">
-                        @csrf
-                        <div class="input">
-                            <input width="100%" type="text" id="content" placeholder="Type your message...">
-                            <a class="btn btn-sm btn-primary" type="submit" id="send" data-value="">Gửi</a>
-                        </div> 
-                    </form> 
-            </div>
-            <div>
-                <div class="list-message">
-                    {{-- {{dd($messages)}} --}}
-                    @if ($messages -> count() != 0)
-                        @foreach($messages as $key => $item)
-                            <div class="message-user" style="background: #FFFFE0;border-radius:15px">
-                                @if ($item->id != $user_id)
-                                     <div style="margin-left:20px">
-                                        <a style="font-size: 15px; font-weight:900;text-decoration: none;"  style="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
-                                    <p>{{$item->content}}</p>
-                                </div>
-                                @endif
-                            </div>
-                        @endforeach
-                        @else
-                        <span>Bạn chưa có tin nhắn nào. Hãy click vào tên bạn bè để trò chuyện</span>
-                    @endif
-                   
-                </div>
-            </div>
-        </div>
-        </div>
-        <div class="col-md-3" style="position: fixed; right: 50;top:80px;height:600px;overflow-y: scroll">
-           <div style="margin-left:50px">
-                @if($users_acceptor->count() == 0 && $users_request->count() == 0)
-                    <h4 style="text-align: center;">Bạn chưa có bạn bè</h4>
-                @endif
-                @if($users_acceptor -> count() > 0)
-                    @forEach($users_acceptor as $key => $item)
-                        <div style="margin-top:10px">
-                            <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-                            <a style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
-                        </div>
-                    @endforeach
-                @endif
-                   @if($users_request -> count() > 0)
-                    @forEach($users_request as $key => $item)
-                        <div style="margin-top:10px">
-                            <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-                            <a style="text-decoration: none; font-weight:900; font-size:12px" type="submit" class="name" data-value="{{$item->id}}">{{$item->name}}</a>
-                        </div>
-                    @endforeach
-                @endif
-           </div>
 
-        </div>
-     </div>
-</div>
-@endsection
 
 <style>
     .chat {
