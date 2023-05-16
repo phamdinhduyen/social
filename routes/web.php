@@ -24,8 +24,8 @@ Route::post('/addcomment', [App\Http\Controllers\PostController::class, 'comment
 Route::get('/getcomment', [App\Http\Controllers\PostController::class, 'getCommentPost']);
 Route::get('/like', [App\Http\Controllers\PostController::class, 'LikePost']);
 Route::get('/unlike', [App\Http\Controllers\PostController::class, 'unLikePost']);
-Route::get('/profile', [App\Http\Controllers\HomeController::class, 'Profile'])->name('profile');
-Route::get('/add-friend', [App\Http\Controllers\AddFriendshipController::class, 'addFriend']);
+Route::match(['get', 'post'], '/profile', [App\Http\Controllers\HomeController::class, 'Profile'])->name('profile');
+Route::match(['get', 'post'], '/add-friend', [App\Http\Controllers\AddFriendshipController::class, 'addFriend']);
 Route::get('/delete-friend', [App\Http\Controllers\AddFriendshipController::class, 'deleteFriend']);
 Route::get('/friend-request', [App\Http\Controllers\AddFriendshipController::class, 'friendRequest'])->name('friend-request');
 Route::get('/confirm-friend', [App\Http\Controllers\AddFriendshipController::class, 'confirmFriend'])->name('confirm-friend');
