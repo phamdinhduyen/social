@@ -62,7 +62,6 @@ class MessageController extends Controller
         $user_id = Auth::user()->id;
         $recipient_id = $_GET["recipient_id"];
         $id = DB::table('avatar')->select('user_id')->where('user_id',$recipient_id)->get();
-        $avatar_id = [];
             if ($id->count() != 0) {
                 $user_name = DB::table('users')
                 ->join('avatar', 'avatar.user_id','users.id')

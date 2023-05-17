@@ -11,7 +11,7 @@
   @extends('layouts.app')
   @section('content')
   @section('post')
-    <div class="container">
+    <div class="container" >
         <div style="display: flex;">
             <div class="col-lg-3" style="margin-left: -8%">
                 <div style="text-align: center;">
@@ -25,28 +25,8 @@
                       <h4 style="margin-top: 2%">{{$item->name}}</h4>
                     @endforeach
                   @endif
-                  <button style="border:1px solid black;" class='btn btn-sm'>Upload Avatar</button>
                 </div>
                 <hr>
-                <div class="modal">
-                  <div class="modal-content">
-                    <span class="close">×</span>   
-                    <form action="" method="post" enctype="multipart/form-data">
-                          @csrf
-                          <h2>Cập nhật ảnh đại diện</h2>
-                          <div>
-                              <input id="file" type="file" name="file" accept="image/jpeg, image/png">
-                          </div>
-                          <div>
-                              <button class="btn btn-secondary" type="submit">Tải lên</button>
-                          </div>
-                    </form>  
-                  </div>
-                </div>
-
-              <div>
-              
-              </div>
             </div>
             <div class="col-md-6" style="height:600px;overflow-y: scroll">
               @include('clients.news.status')
@@ -61,7 +41,7 @@
 </body>
 </html>
 
-  <style>
+<style>
     form {
       max-width: 500px;
       margin: auto;
@@ -133,27 +113,4 @@
 }
 
 </style>
-<script>
-  $(document).ready(function () {
-    var modal = $('.modal');
-    var btn = $('.btn');
-    var span = $('.close');
 
-    btn.click(function () {
-      modal.show();
-    });
-
-    span.click(function () {
-      modal.hide();
-    });
-
-    $(window).on('click', function (e) {
-      if ($(e.target).is('.modal')) {
-        modal.hide();
-      }
-    });
-
-    
-});
-
-</script>

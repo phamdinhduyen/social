@@ -18,16 +18,18 @@
    <div style="margin-bottom:25px ;">
       @if( $avatar_users)
          @foreach($avatar_users as $key => $item)
+            @if(isset($item->image_avatar))
             <a href="{{route('profile')}}" style="display: inline-block;">
                <img src="{{ asset('Uploads/image/'.$item->image_avatar	) }}" alt="" class="avatar" style="width: 30px;height: 30px;border-radius: 50%;border:1px solid #A9A9A9">
             </a>
-         @endforeach
-         @else 
-            <a href="{{route('profile')}}" style="display: inline-block;">
+            @else
+             <a href="{{route('profile')}}" style="display: inline-block;">
                   <img src="" alt="" class="avatar" style="width: 30px;height: 30px;border-radius: 50%;border:1px solid #A9A9A9">
             </a>
-         @endif
-            <a href="{{route('profile')}}" style=" font-weight:900;text-decoration: none; font-size:20px ;" type="submit" class="profile-page sizebar" >Trang cá nhân</a>
+            @endif
+         @endforeach
+      @endif
+         <a href="{{route('profile')}}" style=" font-weight:900;text-decoration: none; font-size:20px ;" type="submit" class="profile-page sizebar" >Trang cá nhân</a>
    </div>
    <div style="margin-bottom:25px">
       <a href="{{route('friend-request')}}" style="display: inline-block;">

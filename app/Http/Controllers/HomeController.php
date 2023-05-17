@@ -71,4 +71,12 @@ class HomeController extends Controller
         $users = $this->avatar->users($user_id);
         return view('clients.profile', compact('allPost','users'));
     }
+
+      public function userProfile($id)
+    {
+        $user_id =$id;
+        $allPost= $this->post->profile( self::_PER_PAGE, $user_id);
+        $users = $this->avatar->users($user_id);
+        return view('clients.user-profile', compact('allPost','users'));
+    }
 }

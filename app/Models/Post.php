@@ -15,7 +15,7 @@ class Post extends Model
     public function get( $perPage = null, $user_id){
         $posts = DB::table($this->table)  
         ->join('users', 'posts.user_id', '=', 'users.id')
-        ->select('posts.id', 'posts.content','posts.created_at','posts.image as image', 'users.name', 'avatar.image_avatar as avatar')
+        ->select('posts.id', 'users.id as user_id','posts.content','posts.created_at','posts.image as image', 'users.name', 'avatar.image_avatar as avatar')
         ->leftJoin('avatar', function ($join) use ($user_id) {
             $join->on('avatar.user_id', '=', 'users.id')
                 ->where('avatar.user_id', '=','users.id');
@@ -56,7 +56,7 @@ class Post extends Model
 
     public function profile( $perPage = null, $user_id){
         $posts = DB::table($this->table)->join('users', 'posts.user_id', '=', 'users.id')
-        ->select('posts.id', 'posts.content', 'posts.image', 'posts.created_at', 'users.name', 'avatar.image_avatar as avatar')
+        ->select('posts.id', 'posts.content', 'posts.image', 'posts.created_at', 'users.id as user_id','users.name', 'avatar.image_avatar as avatar')
         ->where('posts.user_id', $user_id)
         ->leftJoin('avatar', function ($join) use ($user_id) {
             $join->on('avatar.user_id', '=', 'users.id')

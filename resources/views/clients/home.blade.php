@@ -19,6 +19,27 @@
                 @show
             </div>
             <div class="col-md-7 col-lg-6 col-el-6  list-post" style="height:560px;overflow-y: scroll; ">
+                <div class="card" >
+                    <div>
+                        <form class="form-status"  action="" method="post" enctype="multipart/form-data">
+                            @csrf
+                                <div>
+                                    <div class="form-group" style="width: 100%; border-radius: 25px;">
+                                        <textarea style="border-radius: 5px ; width:100%" class="form-control" name="content" id="post" rows="1" placeholder="Xin chào, Hôm nay bạn thế nào" ></textarea>
+                                        @error('content')
+                                        <span style="color:red">{{$message}}</span>
+                                        @enderror
+                                    </div>
+                                    <div class="form-group" style="margin-top: 4px; margin-bottom:4px">
+                                        <input id="file" type="file" name="file" accept="image/jpeg, image/png">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <button class="btn btn-secondary" type="submit">Đăng</button>
+                                </div>
+                        </form>
+                    </div>
+                </div>
                <div class="status">
                     @section('status')
                     @include('clients.news.status')

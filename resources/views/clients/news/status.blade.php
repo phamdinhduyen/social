@@ -6,28 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 </head>
 <body>
-      <div class="card" >
-            <div>
-                <form class="form-status"  action="" method="post" enctype="multipart/form-data">
-                @csrf
-                    <div>
-                        <div class="form-group" style="width: 100%; border-radius: 25px;">
-                            <textarea style="border-radius: 5px ; width:100%" class="form-control" name="content" id="post" rows="1" placeholder="Xin chào, Hôm nay bạn thế nào" ></textarea>
-                            @error('content')
-                            <span style="color:red">{{$message}}</span>
-                            @enderror
-                        </div>
-                        <div class="form-group" style="margin-top: 4px; margin-bottom:4px">
-                            <input id="file" type="file" name="file" accept="image/jpeg, image/png">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-secondary" type="submit">Đăng</button>
-                    </div>
-            </form>
-            </div>
-    </div>
+     
     <div>
+        {{-- {{dd($allPost)}} --}}
         @if($allPost -> count() > 0)
                 @foreach($allPost as $key => $item)
                     <div class="card post" data-post-id="{{$item->id}}" style="margin-top:5px; padding:0px">
@@ -35,7 +16,7 @@
                             <div style="margin-left:10px;">
                                 <div>
                                     <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-                                    <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
+                                    <a href="{{ route('user-profile', ['id' => $item->user_id]) }}" style="text-decoration: none; font-weight:900" type="submit" class="name_comment">{{$item->name}}</a>
                                 </div>
                                 <span style="font-size: 11px;">{{$item->created_at}}</span> <br/>
                                 <span>{{$item->content}}<span>
