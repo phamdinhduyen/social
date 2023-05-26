@@ -6,61 +6,6 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Trang cá nhân</title>
-</head>
-<body>
-  @extends('layouts.app')
-  @section('content')
-  @section('post')
-    <div class="container">
-        <div style="display: flex;">
-            <div class="col-lg-3" style="margin-left: -8%">
-                <div style="text-align: center;">
-                  @if($users)
-                    @foreach($users as $key => $item)
-                      @if(isset($item->image_avatar))
-                        <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="" class="avatar">
-                      @else
-                        <img src="{{ asset('Uploads/image/') }}" alt="" class="avatar">
-                      @endif
-                      <h4 style="margin-top: 2%">{{$item->name}}</h4>
-                    @endforeach
-                  @endif
-                  <button style="border:1px solid black;" class='btn btn-sm'>Upload Avatar</button>
-                </div>
-                <hr>
-                <div class="modal">
-                  <div class="modal-content">
-                    <span class="close">×</span>   
-                    <form action="" method="post" enctype="multipart/form-data">
-                          @csrf
-                          <h2>Cập nhật ảnh đại diện</h2>
-                          <div>
-                              <input id="file" type="file" name="file" accept="image/jpeg, image/png">
-                          </div>
-                          <div>
-                              <button class="btn btn-secondary" type="submit">Tải lên</button>
-                          </div>
-                    </form>  
-                  </div>
-                </div>
-
-              <div>
-              
-              </div>
-            </div>
-            <div class="col-md-6" style="height:600px;overflow-y: scroll">
-              @include('clients.news.status')
-              @show
-            </div>
-            <div class="col-md-3">  
-            
-            </div>
-        </div>
-    </div>
-  @endsection
-</body>
-</html>
-
   <style>
     form {
       max-width: 500px;
@@ -91,12 +36,12 @@
       height: 100px;
       border: 3px solid #a9a9a9;
       border-radius: 50%;
-      }
+    }
+    
     body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.modal {
+      font-family: Arial, Helvetica, sans-serif;
+    }
+    .modal {
   display: none;
   position: fixed;
   z-index: 1;
@@ -131,8 +76,80 @@
   text-decoration: none;
   cursor: pointer;
 }
+.mobile{
+  display: none
+}
+  @media only screen and (min-width: 320px) and (max-width: 600px) {
+  .mobile{
+      display: block;
+          margin:auto
+   }
+  .navbar_right,.list-post{
+      display: none;
+   }
+   
+  }
 
-</style>
+  @media only screen and (min-width: 1366px) {
+  .navbar_left{
+    margin-left: -100px
+  }
+  }
+  </style>
+</head>
+<body>
+  @extends('layouts.app')
+  
+  @section('content')
+    <div class="container">
+      <div style="display: flex;">
+        <div class="col-md-3 col-sm-12 col-lg-3 col-el-3 navbar_left">
+          <div style="text-align: center;">
+            @if($users)
+              @foreach($users as $key => $item)
+                @if(isset($item->image_avatar))
+                  <img src="{{ asset('Uploads/image/'.$item->image_avatar) }}" alt="" class="avatar">
+                @else
+                  <img src="{{ asset('Uploads/image/') }}" alt="" class="avatar">
+                @endif
+                <h4 style="margin-top: 2%">{{$item->name}}</h4>
+              @endforeach
+            @endif
+            <button style="border:1px solid black;" class='btn btn-sm'>Upload Avatar</button>
+          </div>
+          <hr>
+          <div class="modal">
+            <div class="modal-content">
+              <span class="close">×</span>   
+              <form action="" method="post" enctype="multipart/form-data">
+                @csrf
+                <h2>Cập nhật ảnh đại diện</h2>
+                <div>
+                  <input id="file" type="file" name="file" accept="image/jpeg, image/png">
+                </div>
+                <div>
+                  <button class="btn btn-secondary" type="submit">Tải lên</button>
+                </div>
+              </form>  
+            </div>
+          </div>
+          <div class="mobile">@include('clients.news.status')</div>
+          <div>
+          
+          </div>
+        </div>
+        <div class="col-md-7 col-lg-6 col-el-6 list-post " style="height:600px;overflow-y: scroll">
+          @include('clients.news.status')
+        </div>
+        <div class="col-md-4 col-lg-3 col-lg-3 navbar_right">  
+        
+        </div>
+      </div>
+    </div>
+  @endsection
+</body>
+</html>
+
 <script>
   $(document).ready(function () {
     var modal = $('.modal');

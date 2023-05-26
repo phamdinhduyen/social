@@ -13,7 +13,7 @@
     @section('content')
     <div class="container" >
         <div style="display: flex; margin:5px">
-            <div class="col-md-1 col-sm-1 col-lg-3  col-el-3 " style="margin-left:-5%" >
+            <div class="col-md-1 col-sm-1 col-lg-3 col-el-3 " style="margin-left:-5%" >
                 @section('sizebar')
                     @include('clients.block.sizebar')
                 @show

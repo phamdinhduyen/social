@@ -44,10 +44,10 @@
       <a href="{{route('friend')}}" style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="friend sizebar" >Bạn bè</a>
    </div>
    <div style="margin-bottom:25px">
-      <a href="{{route('message')}}" style="display: inline-block;">
+      <a href="{{route('chatify')}}" style="display: inline-block;">
          <i  style="font-size: 24px" class="fas fa-comment-alt"></i>
       </a>
-      <a href="{{route('message')}}" style=" font-weight:900;text-decoration: none; font-size:20px;" type="submit" class="message-page sizebar" >Tin nhắn</a>
+      <a href="{{route('chatify')}}" style=" font-weight:900;text-decoration: none; font-size:20px;" type="submit" class="message-page sizebar" >Tin nhắn</a>
    </div>
    <div style="margin-bottom:25px">
       <a href="" style="display: inline-block;">

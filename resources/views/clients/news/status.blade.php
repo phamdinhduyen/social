@@ -116,11 +116,10 @@ $(document).ready(function() {
                         htmlComments += `
                         <div style="margin-left:10px">
                             <div>
-                                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
                                 <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a> 
                             </div>
                             <div style="margin-top:10px"> 
-                                <span style="font-size:12px;margin-left:40px">${item.content}<span>
+                                <span style="font-size:12p">${item.content}<span>
                             </div>
                             <div>
                                 <a style="text-decoration: none" type="submit" class="like-comment">Thích</a> 
@@ -173,10 +172,9 @@ $(document).ready(function() {
                             htmlComments += `
                             <div style="margin-left:10px; ">
                                 <div>
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/1200px-Elon_Musk_Royal_Society_%28crop2%29.jpg" alt="Avatar" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
                                     <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a> 
                                 </div>
-                                <span style="font-size:12px; margin-left:40px;">${item.content}<span>
+                                <span style="font-size:12px;">${item.content}<span>
                                 <div>
                                     <a style="text-decoration: none" type="submit" class="like">Thích</a> 
                                     <a style="text-decoration: none; margin-left:10px" type="submit" class="reply">Trả lời</a>
