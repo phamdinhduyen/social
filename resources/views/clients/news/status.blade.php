@@ -143,27 +143,24 @@ $(document).ready(function() {
                         <div style="border-bottom:1px solid #A9A9A9 ">
                             <div style="display:flex; justify-content: space-around; ">
                                 <div> 
-                                    if($item->is_liked == 0)
-                                        <div style="display:flex">
+                                    ${item.is_liked == 0 ? ` <div style="display:flex">
                                             <div style="margin-right:3px;">
                                                 <i style="color:#A9A9A9" class="fas fa-heart heart"></i>
                                             </div>
                                             <div>
-                                                <a style="text-decoration: none; font-weight:900" type="submit" class="like" data-value=".{item->id}" data-index-value="{{$key}}">Thích</a>
-                                                <a style="text-decoration: none;  font-weight:900; display:none" type="submit" class="unlike" data-value="{$item->id}" data-index-value="{{$key}}">Bỏ Thích</a>
+                                                <a style="text-decoration: none; font-weight:900" type="submit" class="like" data-value="${item.id}" data-index-value="{{$key}}">Thích</a>
+                                                <a style="text-decoration: none;  font-weight:900; display:none" type="submit" class="unlike" data-value="${item.id}" data-index-value="{{$key}}">Bỏ Thích</a>
                                             </div>
-                                        </div>  
-                                    else 
-                                    <div style="display:flex">
+                                        </div>`  :    `<div style="display:flex">
                                             <div style="margin-right:3px;">
                                             <i style="color:red" class="fas fa-heart heart"></i> 
                                             </div>
                                             <div>
-                                                <a style="text-decoration: none;  font-weight:900" type="submit" class="unlike" data-value="${$item.id}" data-index-value="{{$key}}">Bỏ Thích</a>
+                                                <a style="text-decoration: none;  font-weight:900" type="submit" class="unlike" data-value="${item.id}" data-index-value="{{$key}}">Bỏ Thích</a>
                                                 <a style="text-decoration: none; font-weight:900; display:none" type="submit" class="like" data-value="${item.id}}" data-index-value="{{$key}}">Thích</a>  
                                             </div>
-                                        </div>
-                                    endif
+                                    </div>`}
+                                       
                                 </div> 
                                 <div>
                                     <i style="color:A9A9A9" class="fas fa-comment-alt"></i>
