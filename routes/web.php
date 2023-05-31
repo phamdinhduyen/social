@@ -19,6 +19,7 @@ Auth::routes(['verify' => true]);
 Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/show-more-post', [App\Http\Controllers\HomeController::class, 'show_more']);
 Route::post('/', [App\Http\Controllers\PostController::class, 'postAdd']);
 Route::post('/addcomment', [App\Http\Controllers\PostController::class, 'commentPost']);
 Route::get('/getcomment', [App\Http\Controllers\PostController::class, 'getCommentPost']);

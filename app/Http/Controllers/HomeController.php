@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     private $post;
     private $avatar;
-    const _PER_PAGE = 55;
+    const _PER_PAGE = 25;
     public function __construct()
     {
         $this->middleware('auth');
@@ -62,6 +62,16 @@ class HomeController extends Controller
             ->get();    
         }
         return view('clients.home', compact('allPost','users','avatar_users'));
+    }
+
+    public function show_more(){
+        $number_page = 25;
+        $page = $_GET["page"];
+         settype($page, "int");
+       
+        $user_id = Auth::user()->id;
+        $allPost= $this->post->showMore( $page,$number_page, $user_id);
+        return response()->json($allPost);
     }
 
     public function Profile()

@@ -66,7 +66,6 @@
           <hr>
           <div class="mobile" style="display:none">@include('clients.news.status')</div>
           <div>
-          
           </div>
         </div>
         <div class="col-md-6" style="height:600px;overflow-y: scroll">
@@ -80,3 +79,7 @@
   @endsection
 </body>
 </html>
+
+
+
+      

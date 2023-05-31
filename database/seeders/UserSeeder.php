@@ -29,6 +29,7 @@ class UserSeeder extends Seeder
             DB::table('users')->insert([
                 'name' =>  $faker->name,
                 'email' =>  $faker->email,
+                'role' => 'user',
                 'email_verified_at' => now(),
                 'password' =>  Hash::make(11111111),
                 'created_at'=> now()

@@ -133,7 +133,7 @@
               </form>  
             </div>
           </div>
-          <div class="mobile">@include('clients.news.status')</div>
+          {{-- <div class="mobile">@include('clients.news.status')</div> --}}
           <div>
           
           </div>

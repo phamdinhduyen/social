@@ -89,14 +89,119 @@
                        </div>
                     </div>  
                 @endforeach
-            @endif
+        @endif
+        
     </div>
+    <div id="show_more_post"></div>
+    <div style="text-align:center; color: green" id="show_more"> Xem thêm</div>
+
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
+var page = 1; 
 $(document).ready(function() {
- 
+    //showmore
+      $("#show_more").click(function(e) {
+            
+            page = page + 1
+            console.log(page); 
+            $.ajax({
+                type: 'get',
+                url: 'http://127.0.0.1:8000/show-more-post',
+                data: {page: page,},
+                success: function(data) {
+                // Handle successful response
+                    let html_show_more = '';
+                    data.forEach((item) => {
+                        html_show_more += `
+                            <div class="card post" data-post-id="${item.id}" style="margin-top:5px; padding:0px">
+                       <div style="border-bottom:1px solid #A9A9A9">
+                            <div style="margin-left:10px;">
+                                <div>
+                                    <img src="Uploads/image/${item.image_avatar}" alt="" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
+                                    <a  style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a>
+                                </div>
+                                <span style="font-size: 11px;">${item.created_at}</span> <br/>
+                                <span>${item.content}<span>
+                            </div>
+                            <div style="margin-top:5px">
+                             ${item.image != null ? `<img height="auto" width="100%" src="Uploads/image/${item.image}" alt="image">` : ''}
+                            </div>
+                       </div>
+                       <div style="border-bottom:1px solid #A9A9A9;display:flex; justify-content: space-between;">
+                            <div>
+                                <span style="margin-left:10px;color: 2F4F4F">${item.like_count }</span>
+                                <span style="color: 2F4F4F">người khác đã thích</span>
+                            </div>
+                            <div>
+                                <span style="color: 2F4F4F">${item.comment_count }</span>
+                                <span style="margin-right:10px;color: 2F4F4F">Bình luận</span>
+                            </div>
+                        </div>
+                        
+                        <div style="border-bottom:1px solid #A9A9A9 ">
+                            <div style="display:flex; justify-content: space-around; ">
+                                <div> 
+                                    if($item->is_liked == 0)
+                                        <div style="display:flex">
+                                            <div style="margin-right:3px;">
+                                                <i style="color:#A9A9A9" class="fas fa-heart heart"></i>
+                                            </div>
+                                            <div>
+                                                <a style="text-decoration: none; font-weight:900" type="submit" class="like" data-value=".{item->id}" data-index-value="{{$key}}">Thích</a>
+                                                <a style="text-decoration: none;  font-weight:900; display:none" type="submit" class="unlike" data-value="{$item->id}" data-index-value="{{$key}}">Bỏ Thích</a>
+                                            </div>
+                                        </div>  
+                                    else 
+                                    <div style="display:flex">
+                                            <div style="margin-right:3px;">
+                                            <i style="color:red" class="fas fa-heart heart"></i> 
+                                            </div>
+                                            <div>
+                                                <a style="text-decoration: none;  font-weight:900" type="submit" class="unlike" data-value="${$item.id}" data-index-value="{{$key}}">Bỏ Thích</a>
+                                                <a style="text-decoration: none; font-weight:900; display:none" type="submit" class="like" data-value="${item.id}}" data-index-value="{{$key}}">Thích</a>  
+                                            </div>
+                                        </div>
+                                    endif
+                                </div> 
+                                <div>
+                                    <i style="color:A9A9A9" class="fas fa-comment-alt"></i>
+                                    <a style="text-decoration: none;font-weight:900" type="submit" class="comments" data-value="${item.id}" data-index-value="{{$key}}">Bình luận</a>
+                                </div>
+                                <div>
+                                    <i style="color:A9A9A9" class="fas fa-share-square"></i>
+                                    <a style="text-decoration: none;font-weight:900" type="submit" class="share">Chia sẻ</a>
+                                </div>
+                            </div>
+                        </div>  
+                        <div class="form-comment" style="display: none;">
+                            <form id="comments-form" style="display:flex; margin-top:5px" action="" method="get">
+                                @csrf
+                                <div class="form-group" style="width: 70%; margin-left:5px; border-radius: 25px;">
+                                    <textarea style="border-radius: 5px" class="form-control" name="content" id="comments-post-${item.id}" rows="1" ></textarea>
+                                    <span class="comment-error"></span>
+                                </div>
+                                <div class="form-group" style=" margin-left:5px">
+                                    <button style="text-decoration: none;font-weight:900" type="submit" class="btn-secondary submit-comment" data-value="{{$item->id}}" data-index-value="{{$key}}"> Bình luận </button>
+                                </div>
+                            </form> 
+                            
+                            <div class="comment-success"></div>
+                       </div>
+                    </div>
+                        `
+                    });
+                  
+                    $('#show_more_post').append(html_show_more); 
+                },
+                error: function(xhr, status, error) {
+                // Handle error response
+                }
+            });
+            
+    })
+
     // get comment when click buttom comment
     $(".comments").click(function(e) {
             var commentForm = document.getElementsByClassName('form-comment');
