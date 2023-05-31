@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     private $post;
     private $avatar;
-    const _PER_PAGE = 2;
+    const _PER_PAGE = 25;
     public function __construct()
     {
         $this->middleware('auth');
@@ -65,7 +65,7 @@ class HomeController extends Controller
     }
 
     public function show_more(){
-        $number_page = 2;
+        $number_page = 25;
         $page = $_GET["page"];
          settype($page, "int");
        
