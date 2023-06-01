@@ -8,7 +8,6 @@
 <body>
      
     <div>
-        {{-- {{dd($allPost)}} --}}
         @if($allPost -> count() > 0)
                 @foreach($allPost as $key => $item)
                     <div class="card post" data-post-id="{{$item->id}}" style="margin-top:5px; padding:0px">
@@ -94,18 +93,23 @@
     </div>
     <div id="show_more_post"></div>
     <div style="text-align:center; color: green" id="show_more"> Xem thêm</div>
-
+      
 </body>
 </html>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
 <script>
 var page = 1; 
+var key = 2
+var numberPage = 2
 $(document).ready(function() {
+    // $('body').on('click', '.duyen', function() {
+        
+    // });
+ 
     //showmore
-      $("#show_more").click(function(e) {
-            
+    $("#show_more").click(function() {
             page = page + 1
-            console.log(page); 
+            key = (page) * numberPage; 
             $.ajax({
                 type: 'get',
                 url: 'http://127.0.0.1:8000/show-more-post',
@@ -113,14 +117,16 @@ $(document).ready(function() {
                 success: function(data) {
                 // Handle successful response
                     let html_show_more = '';
-                    data.forEach((item) => {
+                    data.forEach((item , index) => {
+                        key =  index  + page * numberPage - numberPage; 
+                        console.log(key);
                         html_show_more += `
                             <div class="card post" data-post-id="${item.id}" style="margin-top:5px; padding:0px">
                        <div style="border-bottom:1px solid #A9A9A9">
                             <div style="margin-left:10px;">
                                 <div>
                                     <img src="Uploads/image/${item.image_avatar}" alt="" class="avatar" style="vertical-align: middle;width: 40px;height: 40px;border-radius: 50%;">
-                                    <a  style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a>
+                                    <a href="/user-profile/${item.user_id}" style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a>
                                 </div>
                                 <span style="font-size: 11px;">${item.created_at}</span> <br/>
                                 <span>${item.content}<span>
@@ -148,23 +154,23 @@ $(document).ready(function() {
                                                 <i style="color:#A9A9A9" class="fas fa-heart heart"></i>
                                             </div>
                                             <div>
-                                                <a style="text-decoration: none; font-weight:900" type="submit" class="like" data-value="${item.id}" data-index-value="{{$key}}">Thích</a>
-                                                <a style="text-decoration: none;  font-weight:900; display:none" type="submit" class="unlike" data-value="${item.id}" data-index-value="{{$key}}">Bỏ Thích</a>
+                                                <a style="text-decoration: none; font-weight:900" type="submit" class="like" data-value="${item.id}" data-index-value="${key}">Thích</a>
+                                                <a style="text-decoration: none;  font-weight:900; display:none" type="submit" class="unlike" data-value="${item.id}" data-index-value="${key}">Bỏ Thích</a>
                                             </div>
                                         </div>`  :    `<div style="display:flex">
                                             <div style="margin-right:3px;">
                                             <i style="color:red" class="fas fa-heart heart"></i> 
                                             </div>
                                             <div>
-                                                <a style="text-decoration: none;  font-weight:900" type="submit" class="unlike" data-value="${item.id}" data-index-value="{{$key}}">Bỏ Thích</a>
-                                                <a style="text-decoration: none; font-weight:900; display:none" type="submit" class="like" data-value="${item.id}}" data-index-value="{{$key}}">Thích</a>  
+                                                <a style="text-decoration: none;  font-weight:900" type="submit" class="unlike" data-value="${item.id}" data-index-value="${key}">Bỏ Thích</a>
+                                                <a style="text-decoration: none; font-weight:900; display:none" type="submit" class="like" data-value="${item.id}" data-index-value="${key}">Thích</a>  
                                             </div>
                                     </div>`}
                                        
                                 </div> 
                                 <div>
                                     <i style="color:A9A9A9" class="fas fa-comment-alt"></i>
-                                    <a style="text-decoration: none;font-weight:900" type="submit" class="comments" data-value="${item.id}" data-index-value="{{$key}}">Bình luận</a>
+                                    <a style="text-decoration: none;font-weight:900" type="submit" class="comments" data-value="${item.id}" data-index-value="${key}">Bình luận</a>
                                 </div>
                                 <div>
                                     <i style="color:A9A9A9" class="fas fa-share-square"></i>
@@ -180,10 +186,9 @@ $(document).ready(function() {
                                     <span class="comment-error"></span>
                                 </div>
                                 <div class="form-group" style=" margin-left:5px">
-                                    <button style="text-decoration: none;font-weight:900" type="submit" class="btn-secondary submit-comment" data-value="{{$item->id}}" data-index-value="{{$key}}"> Bình luận </button>
+                                    <button style="text-decoration: none;font-weight:900" type="submit" class="btn-secondary submit-comment" data-value="${item.id}" data-index-value="${key}"> Bình luận </button>
                                 </div>
-                            </form> 
-                            
+                            </form>   
                             <div class="comment-success"></div>
                        </div>
                     </div>
@@ -195,19 +200,18 @@ $(document).ready(function() {
                 error: function(xhr, status, error) {
                 // Handle error response
                 }
-            });
+            }); 
             
     })
 
     // get comment when click buttom comment
-    $(".comments").click(function(e) {
-            var commentForm = document.getElementsByClassName('form-comment');
+     $('body').on('click', '.comments', function() {
+         var commentForm = document.getElementsByClassName('form-comment');
             var post_id = $(this).attr('data-value');
             var index = $(this).attr('data-index-value');
             if (commentForm.length > 0) {
-            commentForm[index].style.display = 'block'; 
-
-            $.ajax({
+            commentForm[index].style.display = 'block';
+                 $.ajax({
                 type: 'get',
                 url: 'http://127.0.0.1:8000/getcomment',
                 data: {post_id: post_id,},
@@ -218,7 +222,7 @@ $(document).ready(function() {
                         htmlComments += `
                         <div style="margin-left:10px">
                             <div>
-                                <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a> 
+                                <a href="/user-profile/${item.user_id}" style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a> 
                             </div>
                             <div style="margin-top:10px"> 
                                 <span style="font-size:12p">${item.content}<span>
@@ -238,11 +242,13 @@ $(document).ready(function() {
                 // Handle error response
                 }
             });
-        }     
-    })
-    //add comment
-    $(".submit-comment").click(function(e) {
+        }  
         
+    });
+ 
+    //add comment
+    $('body').on('click', '.submit-comment', function(e){
+        console.log(111);
         e.preventDefault();
         var content = $(`#content`);
         var commentErr = document.getElementsByClassName('comment-error');
@@ -274,7 +280,7 @@ $(document).ready(function() {
                             htmlComments += `
                             <div style="margin-left:10px; ">
                                 <div>
-                                    <a style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a> 
+                                    <a href="/user-profile/${item.user_id}" style="text-decoration: none; font-weight:900" type="submit" class="name_comment">${item.name}</a> 
                                 </div>
                                 <span style="font-size:12px;">${item.content}<span>
                                 <div>
@@ -307,7 +313,7 @@ $(document).ready(function() {
             });
     });
     // like 
-    $(".like").click(function(e) {
+    $('body').on('click', '.like', function() {
         var post_id = $(this).attr('data-value');
         var like = document.getElementsByClassName('like');
         var unLike = document.getElementsByClassName('unlike');
@@ -327,10 +333,10 @@ $(document).ready(function() {
                 error: function(xhr, status, error) {
                 // Handle error response
                 }
-            });      
-    })
+            });  
+    });
 
-    $(".unlike").click(function(e) {
+    $('body').on('click', '.unlike', function() {
         var post_id = $(this).attr('data-value');
         var like = document.getElementsByClassName('like');
         var unLike = document.getElementsByClassName('unlike');
@@ -350,8 +356,10 @@ $(document).ready(function() {
                 error: function(xhr, status, error) {
                 // Handle error response
                 }
-            });      
-    })
+            });
+    });
+ 
+  
 })
 </script>
 

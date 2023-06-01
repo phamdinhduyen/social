@@ -84,7 +84,7 @@ class Post extends Model
 
     public function getcomment($post_id){
         $comments = DB::table('comments')  ->join('users', 'comments.user_id', '=', 'users.id')
-        ->select('comments.id', 'comments.content', 'users.name')->where('comments.post_id',$post_id) -> get();
+        ->select('comments.id', 'comments.content', 'users.name','users.id as user_id')->where('comments.post_id',$post_id) -> get();
         return $comments;
     }
 
