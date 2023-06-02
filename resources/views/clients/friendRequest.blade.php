@@ -11,12 +11,12 @@
     @section('content')
     <div class="container" >
         <div style="display: flex; margin:5px">
-            <div class="col-md-3"  style="margin-left:-5%">
+            <div class="col-md-1 col-sm-1 col-lg-3 col-el-3 navbar_left " style="margin-left:-5%">
                 @section('sizebar')
                     @include('clients.block.sizebar')
                 @show
             </div>
-            <div class="col-md-6">
+            <div class="col-md-7 col-lg-6 col-el-6  list-post" style="height:560px;overflow-y: scroll; ">
             @if($users->count() == 0)
             <h4 class="no-friend" style="text-align: center;">Bạn không có lời mời kết bạn</h4>
             @endif
@@ -36,7 +36,7 @@
             @endforeach
             @endif   
             </div>
-            <div class="col-md-3">
+            <div class="col-md-5 col-lg-3 col-lg-3 navbar_right" >
             
             </div>
         </div>
@@ -89,8 +89,57 @@
      })
 </script>
 <style>
-  .no-friend{
-    color: #159b4b
-  }  
+   @media only screen and (min-width: 320px) and (max-width: 600px) {
+   .navbar_right{
+      display: none;
+   }
+   .navbar_left{
+    margin-left: 20%;
+   }
+   .list-post{
+    margin-left: 5px;
+   }
+   .no-friend{
+    font-size: 12px;
+    margin-left: 50px;
+    margin-right: 50px;
+   }
+ 
+   }
+
+@media only screen and (min-width: 600px) and (max-width: 1366px) {
+     .navbar_right{
+      margin-left: 50px
+   }
+}
+@media only screen and (min-width: 768px) and (max-width: 1024px) {
+     .navbar_right{
+      margin-left: 10px;
+      width: 100%;
+      
+   }
+}
+
+@media only screen and (min-width: 1024px) and (max-width: 1366px) {
+     .navbar_right{
+      margin-left: 90px;
+      width: 100%;
+      
+   }
+}
+
+@media only screen and (min-width: 1920px)  {
+     .navbar_right{
+      margin-left: 90px;
+      width: 100%;
+      
+   }
+}
 </style>
+
+
+
+
+
+
 

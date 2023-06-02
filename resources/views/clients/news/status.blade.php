@@ -29,7 +29,7 @@
                        <div style="border-bottom:1px solid #A9A9A9;display:flex; justify-content: space-between;">
                             <div>
                                 <span style="margin-left:10px;color: 2F4F4F">{{$item->like_count }}</span>
-                                <span style="color: 2F4F4F">người khác đã thích</span>
+                                <span style="color: 2F4F4F"> Đã thích</span>
                             </div>
                             <div>
                                 <span style="color: 2F4F4F">{{$item->comment_count }}</span>

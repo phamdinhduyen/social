@@ -51,16 +51,16 @@
    </div>
    <div style="margin-bottom:25px">
       <a href="" style="display: inline-block;">
-         <i style="font-size: 24px;" class="fas fa-users"></i>
+         <i style="font-size: 24px;" class="fas fa-search"></i>
       </a>
-      <a  style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="group-page sizebar">Nhóm</a> 
+      <a  style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="group-page sizebar">Tìm kiếm bạn bè</a> 
    </div>
-   <div style="margin-bottom:25px">
+   {{-- <div style="margin-bottom:25px">
       <a href="" style="display: inline-block;">
          <i style="font-size: 24px;" class="fas fa-pager"></i>
       </a>
       <a  style=" font-weight:900;text-decoration: none; font-size:20px " type="submit" class="page sizebar">Trang</a> 
-   </div>
+   </div> --}}
    <div style="margin-bottom:25px">
       <a href="" style="display: inline-block;">
          <i style="font-size: 24px;" class="fas fa-shopping-cart"></i>

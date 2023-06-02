@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <scrip src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Trang cá nhân</title>
   <style>
@@ -41,6 +41,12 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
     }
+  
+@media only screen and (min-width: 768px){
+   .col{
+    display: flex;
+   }
+}
   </style>
 </head>
 <body>
@@ -48,8 +54,8 @@
   
   @section('content')
     <div class="container">
-      <div style="display: flex;">
-        <div class="col-lg-3" style="margin-left: -8%">
+      <div class="col">
+        <div class="col-md-3 col-sm-12 col-lg-3 col-el-3 navbar_left">
           <div style="text-align: center;">
             @if($users)
               @foreach($users as $key => $item)
@@ -59,27 +65,36 @@
                   <img src="{{ asset('Uploads/image/') }}" alt="" class="avatar">
                 @endif
                 <h4 style="margin-top: 2%">{{$item->name}}</h4>
-                <a href="{{ route('chatify') }}/{{$item->id}}">Nhắn tin</a>
               @endforeach
             @endif
+            <a href="{{ route('chatify') }}/{{$item->id}}">Nhắn tin</a>
           </div>
           <hr>
-          <div class="mobile" style="display:none">@include('clients.news.status')</div>
-          <div>
+          <div class="modal">
+            <div class="modal-content">
+              <span class="close">×</span>   
+              <form action="" method="post" enctype="multipart/form-data">
+                @csrf
+                <h2>Cập nhật ảnh đại diện</h2>
+                <div>
+                  <input id="file" type="file" name="file" accept="image/jpeg, image/png">
+                </div>
+                <div>
+                  <button class="btn btn-secondary" type="submit">Tải lên</button>
+                </div>
+              </form>  
+            </div>
           </div>
+          <div>
+          
         </div>
-        <div class="col-md-6" style="height:600px;overflow-y: scroll">
-          @include('clients.news.status')
-        </div>
-        <div class="col-md-3">  
-        
-        </div>
+      </div>
+      <div class="col-md-7 col-lg-6 col-el-6 list-post " style="height:600px;overflow-y: scroll">
+        @include('clients.news.status')
+      </div>
       </div>
     </div>
   @endsection
 </body>
 </html>
 
-
-
-      

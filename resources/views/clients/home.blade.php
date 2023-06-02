@@ -13,7 +13,7 @@
     @section('content')
     <div class="container" >
         <div style="display: flex; margin:5px">
-            <div class="col-md-1 col-sm-1 col-lg-3 col-el-3 " style="margin-left:-5%" >
+            <div class="col-md-1 col-sm-1 col-lg-3 col-el-3 navbar_left " style="margin-left:-5%" >
                 @section('sizebar')
                     @include('clients.block.sizebar')
                 @show
@@ -69,9 +69,13 @@
    .navbar_right{
       display: none;
    }
-   .status{
-    margin-left: 10px
+   .navbar_left{
+    margin-left: 20%;
    }
+   .list-post{
+    margin-left: 5px;
+   }
+ 
    }
 
 @media only screen and (min-width: 600px) and (max-width: 1366px) {

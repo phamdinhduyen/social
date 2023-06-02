@@ -76,25 +76,12 @@
   text-decoration: none;
   cursor: pointer;
 }
-.mobile{
-  display: none
-}
-  @media only screen and (min-width: 320px) and (max-width: 600px) {
-  .mobile{
-      display: block;
-          margin:auto
-   }
-  .navbar_right,.list-post{
-      display: none;
-   }
-   
-  }
 
-  @media only screen and (min-width: 1366px) {
-  .navbar_left{
-    margin-left: -100px
-  }
-  }
+@media only screen and (min-width: 768px){
+   .col{
+    display: flex;
+   }
+}
   </style>
 </head>
 <body>
@@ -102,7 +89,7 @@
   
   @section('content')
     <div class="container">
-      <div style="display: flex;">
+      <div class="col">
         <div class="col-md-3 col-sm-12 col-lg-3 col-el-3 navbar_left">
           <div style="text-align: center;">
             @if($users)
@@ -133,17 +120,13 @@
               </form>  
             </div>
           </div>
-          {{-- <div class="mobile">@include('clients.news.status')</div> --}}
           <div>
           
-          </div>
         </div>
-        <div class="col-md-7 col-lg-6 col-el-6 list-post " style="height:600px;overflow-y: scroll">
-          @include('clients.news.status')
-        </div>
-        <div class="col-md-4 col-lg-3 col-lg-3 navbar_right">  
-        
-        </div>
+      </div>
+      <div class="col-md-7 col-lg-6 col-el-6 list-post " style="height:600px;overflow-y: scroll">
+        @include('clients.news.status')
+      </div>
       </div>
     </div>
   @endsection
